@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+.menu-bar{
+    width: 700px;
+    height: 100px;
+    margin: auto;
+    margin-top: 25px;
+    border-radius: 15px;
+    background: #fb6e5fe1;
+    box-shadow: 0px -4px 26px 2px rgba(34, 60, 80, 0.19); 
+    color: #fff;
+}
+
+.reset-button{
+    margin-left: 80px;
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #ffcc40;
+    font-size: 30px;
+    color: #375e97;
+    border: 0px solid #fff;
+}
+.reset-button:hover {
+    box-shadow: 0px 0px 14px -1px rgba(34, 60, 80, 0.14) inset;
+    transition-duration: 0.4s;
+    transform: scale(1.05);
+}
+.rotate-reset:hover{
+    transition-duration: 0.2s;
+    transform: rotate(-90deg);
+}
+
+.stepback-button{
+    margin-left: 25px;
+    margin-top: 25px;
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #ffcc40;
+    border: 0px solid #fff;
+    font-size: 30px;
+    color: #375e97;
+}
+.stepback-button:hover {
+    box-shadow: 0px 0px 14px -1px rgba(34, 60, 80, 0.14) inset;
+    transition-duration: 0.4s;
+    transform: scale(1.05);
+}
+
+.squares-left{
+    height: 25px;
+    margin-left: 70px;
+    font-size: 30px;
+    font-family: 'Silkscreen', cursive;
+    font-weight: 400;
+}
+/* .field-9x9{
+    margin-left: 50px;
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #ffcc40;
+    border: 0px solid #fff;
+    font-size: large;
+    color: #375e97;
+}
+
+.field-9x9:hover{
+    box-shadow: 0px 1px 31px 3px rgba(34, 60, 80, 0.2) inset;
+    transition-duration: 0.4s;
+    letter-spacing: 1px;
+    transform: scale(1.05);
+}
+
+.field-5x5{
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #ffcc40;
+    border: 0px solid #fff;
+    font-size: large;
+    color: #375e97;
+}
+
+.field-5x5:hover{
+    box-shadow: 0px 1px 31px 3px rgba(34, 60, 80, 0.2) inset;
+    transition-duration: 0.4s;
+    letter-spacing: 1px;
+    transform: scale(1.05);
+} */

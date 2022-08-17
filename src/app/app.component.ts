@@ -1,3 +1,4 @@
+import { jsDocComment } from '@angular/compiler';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'projectGame';
+
+// for (let i = 0; i < 10; i++){
+  
+//   for (let j = 0; j < 10; j++) {
+
+
+//   } 
+// 
 }

@@ -1,0 +1,15 @@
+<app-menu-bar [squaresNumber]="showLeftSquares()">
+</app-menu-bar>
+<table>
+    <tr *ngFor="let item of items; let i = index">
+        <td *ngFor="let value of item; let j = index">
+            <div>
+                <button  class="square" (click)="showSteps(items[i][j])" [disabled]="items[i][j].isUnplayable || items[i][j].isDone"> 
+                    <div *ngIf="items[i][j].isCurrent" class="current-square">{{items[i][j].step}}</div>
+                    <div *ngIf="items[i][j].isPlayable && !items[i][j].isDone" class="square-playable"></div>
+                    <div *ngIf="items[i][j].isDone && !items[i][j].isCurrent" class="square-complete">{{items[i][j].step}}</div>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>        
