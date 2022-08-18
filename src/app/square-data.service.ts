@@ -12,14 +12,15 @@ export class SquareDataService{
 
   public returnedSquare: Square;
 
+  public SIZE: number = 9;
+
   constructor(){
 
-    const SIZE: number = 9;
 
-    for (let i = 0; i < SIZE; i++) {
-      this.squares[i] = new Array(SIZE);
+    for (let i = 0; i < this.SIZE; i++) {
+      this.squares[i] = new Array(this.SIZE);
       
-      for (let j = 0; j < SIZE; j++) {
+      for (let j = 0; j < this.SIZE; j++) {
           this.squares[i][j] = new Square(i, j);
       }
     }
@@ -29,11 +30,11 @@ export class SquareDataService{
     console.log(data);
   }
   
-  squaresLeft(data:Square[][], SIZE: number):number{
+  squaresLeft():number{
     let counter: number = 0;
-    for (let i = 0; i < SIZE; i++) {
-      for (let j = 0; j < SIZE; j++) {
-        if(data[i][j].isDone === false){
+    for (let i = 0; i < this.SIZE; i++) {
+      for (let j = 0; j < this.SIZE; j++) {
+        if(this.squares[i][j].isDone === false){
           counter++;
         }
       }    
@@ -41,17 +42,17 @@ export class SquareDataService{
     return counter;
   }
 
-  stepBack(data:Square[][], SIZE: number){
+  stepBack(){
     if (this.stepCounter > 1) {
 
-      for (let i = 0; i < SIZE; i++) {
-        for (let j = 0; j < SIZE; j++) {
-          if(data[i][j].isCurrent === true) {
-            data[i][j].isCurrent = false;
-            data[i][j].isUnplayable = false;
-            data[i][j].isPlayable = true;
-            data[i][j].isDone = false;
-            data[i][j].step = 0;
+      for (let i = 0; i < this.SIZE; i++) {
+        for (let j = 0; j < this.SIZE; j++) {
+          if(this.squares[i][j].isCurrent === true) {
+            this.squares[i][j].isCurrent = false;
+            this.squares[i][j].isUnplayable = false;
+            this.squares[i][j].isPlayable = true;
+            this.squares[i][j].isDone = false;
+            this.squares[i][j].step = 0;
           }       
         }    
       }
@@ -62,18 +63,18 @@ export class SquareDataService{
       this.log[this.log.length - 1].isPlayable = false;
       this.log[this.log.length - 1].isUnplayable = true;
       this.log[this.log.length - 1].step--;
-      this.squareClick(data, 9, this.log[this.log.length - 1]);
+      this.squareClick(this.log[this.log.length - 1]);
     }
   }
 
-  reset(data:Square[][], SIZE: number){
-    for (let i = 0; i < SIZE; i++) {
-      for (let j = 0; j < SIZE; j++) {
-        data[i][j].isDone = false;
-        data[i][j].isCurrent = false;
-        data[i][j].step = 0;
-        data[i][j].isUnplayable = false;
-        data[i][j].isPlayable = false;
+  reset(){
+    for (let i = 0; i < this.SIZE; i++) {
+      for (let j = 0; j < this.SIZE; j++) {
+        this.squares[i][j].isDone = false;
+        this.squares[i][j].isCurrent = false;
+        this.squares[i][j].step = 0;
+        this.squares[i][j].isUnplayable = false;
+        this.squares[i][j].isPlayable = false;
         }                
       }
     
@@ -92,15 +93,15 @@ export class SquareDataService{
     alert('you lose')
   }
 
-  squareClick(data:Square[][], SIZE: number, square: Square):void{
+  squareClick(square: Square):void{
 
     this.possibleSteps = 0;
 
-    for (let i = 0; i < SIZE; i++) {
-      for (let j = 0; j < SIZE; j++) {
-        data[i][j].isPlayable = false;
-        data[i][j].isCurrent = false;
-        data[i][j].isUnplayable = false;
+    for (let i = 0; i < this.SIZE; i++) {
+      for (let j = 0; j < this.SIZE; j++) {
+        this.squares[i][j].isPlayable = false;
+        this.squares[i][j].isCurrent = false;
+        this.squares[i][j].isUnplayable = false;
       }    
     }
 
@@ -112,54 +113,54 @@ export class SquareDataService{
 
     console.log('x' + square.coordinateX, 'y' + square.coordinateY);
       if (square.coordinateX - 1 >= 0 && square.coordinateY - 2 >= 0
-        && data[square.coordinateX - 1][square.coordinateY - 2].isDone === false){
+        && this.squares[square.coordinateX - 1][square.coordinateY - 2].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX - 1][square.coordinateY - 2].isPlayable = true;
-    }if (square.coordinateX + 1 < SIZE  && square.coordinateY - 2 >= 0
-      && data[square.coordinateX + 1][square.coordinateY - 2].isDone === false){
+        this.squares[square.coordinateX - 1][square.coordinateY - 2].isPlayable = true;
+    }if (square.coordinateX + 1 < this.SIZE  && square.coordinateY - 2 >= 0
+      && this.squares[square.coordinateX + 1][square.coordinateY - 2].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX + 1][square.coordinateY - 2].isPlayable = true;
+        this.squares[square.coordinateX + 1][square.coordinateY - 2].isPlayable = true;
     }if (square.coordinateX - 2 >= 0 && square.coordinateY - 1 >= 0
-      && data[square.coordinateX - 2][square.coordinateY - 1].isDone === false){
+      && this.squares[square.coordinateX - 2][square.coordinateY - 1].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX - 2][square.coordinateY - 1].isPlayable = true;
-    }if (square.coordinateX + 2 < SIZE && square.coordinateY - 1 >= 0
-      && data[square.coordinateX + 2][square.coordinateY - 1].isDone === false){
+        this.squares[square.coordinateX - 2][square.coordinateY - 1].isPlayable = true;
+    }if (square.coordinateX + 2 < this.SIZE && square.coordinateY - 1 >= 0
+      && this.squares[square.coordinateX + 2][square.coordinateY - 1].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX + 2][square.coordinateY - 1].isPlayable = true;
-    }if (square.coordinateX - 2 >= 0 && square.coordinateY + 1 < SIZE
-      && data[square.coordinateX - 2][square.coordinateY + 1].isDone === false){
+        this.squares[square.coordinateX + 2][square.coordinateY - 1].isPlayable = true;
+    }if (square.coordinateX - 2 >= 0 && square.coordinateY + 1 < this.SIZE
+      && this.squares[square.coordinateX - 2][square.coordinateY + 1].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX - 2][square.coordinateY + 1].isPlayable = true;
-    }if (square.coordinateX + 2 < SIZE && square.coordinateY + 1 < SIZE
-      && data[square.coordinateX + 2][square.coordinateY + 1].isDone === false){
+        this.squares[square.coordinateX - 2][square.coordinateY + 1].isPlayable = true;
+    }if (square.coordinateX + 2 < this.SIZE && square.coordinateY + 1 < this.SIZE
+      && this.squares[square.coordinateX + 2][square.coordinateY + 1].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX + 2][square.coordinateY + 1].isPlayable = true;
-    }if (square.coordinateX - 1 >= 0 && square.coordinateY + 2 < SIZE
-      && data[square.coordinateX - 1][square.coordinateY + 2].isDone === false){
+        this.squares[square.coordinateX + 2][square.coordinateY + 1].isPlayable = true;
+    }if (square.coordinateX - 1 >= 0 && square.coordinateY + 2 < this.SIZE
+      && this.squares[square.coordinateX - 1][square.coordinateY + 2].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX - 1][square.coordinateY + 2].isPlayable = true;
-    }if (square.coordinateX + 1 < SIZE && square.coordinateY + 2 < SIZE
-      && data[square.coordinateX + 1][square.coordinateY + 2].isDone === false){
+        this.squares[square.coordinateX - 1][square.coordinateY + 2].isPlayable = true;
+    }if (square.coordinateX + 1 < this.SIZE && square.coordinateY + 2 < this.SIZE
+      && this.squares[square.coordinateX + 1][square.coordinateY + 2].isDone === false){
         this.possibleSteps++;
-        data[square.coordinateX + 1][square.coordinateY + 2].isPlayable = true;
+        this.squares[square.coordinateX + 1][square.coordinateY + 2].isPlayable = true;
     }
     
 
-    for (let i = 0; i < SIZE; i++) {
-      for (let j = 0; j < SIZE; j++) {
+    for (let i = 0; i < this.SIZE; i++) {
+      for (let j = 0; j < this.SIZE; j++) {
 
-        if(data[i][j].isPlayable === false){
-          data[i][j].isUnplayable = true;
+        if(this.squares[i][j].isPlayable === false){
+          this.squares[i][j].isUnplayable = true;
         }  
       }    
     }
 
-    if(this.stepCounter === SIZE*SIZE){
+    if(this.stepCounter === this.SIZE*this.SIZE){
       setTimeout(this.winMessage, 0);
     }
 
-    if(this.possibleSteps === 0 && this.stepCounter !== SIZE*SIZE){
+    if(this.possibleSteps === 0 && this.stepCounter !== this.SIZE*this.SIZE){
       setTimeout(this.loseMessage, 0);
     }
   }

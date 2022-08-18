@@ -33,22 +33,22 @@ export class SquareComponent implements OnInit{
   }
 
   showSteps(square: Square){
-    this.squareDataService.squareClick(this.items, 9, square);
+    this.squareDataService.squareClick(square);
     this.squareDataService.pushToSquareStack(square);
     this.sdr.detectChanges;
     console.log(this.items);
   }    
 
   stepBack(){
-    this.squareDataService.stepBack(this.items, 9);
+    this.squareDataService.stepBack();
   }
   
   reset(){
-    this.squareDataService.reset(this.items, 9);
+    this.squareDataService.reset();
   }
 
   showLeftSquares():number{
-    return this.squareDataService.squaresLeft(this.items, 9);
+    return this.squareDataService.squaresLeft();
   }
 
 }
