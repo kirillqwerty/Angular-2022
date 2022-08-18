@@ -3,7 +3,6 @@
 .menu-bar{
     width: 700px;
     height: 100px;
-    margin: auto;
     margin-top: 25px;
     border-radius: 15px;
     background: #fb6e5fe1;
@@ -11,15 +10,18 @@
     color: #fff;
 }
 
-.reset-button{
-    margin-left: 80px;
+.reset-button{ 
+    float: right;
+    vertical-align: middle; 
+    margin-top: 25px;
+    margin-right: 25px;
     height: 50px;
     width: 100px;
     border-radius: 15px;
     background-color: #ffcc40;
     font-size: 30px;
     color: #375e97;
-    border: 0px solid #fff;
+    border: 0;
 }
 .reset-button:hover {
     box-shadow: 0px 0px 14px -1px rgba(34, 60, 80, 0.14) inset;
@@ -38,7 +40,7 @@
     width: 100px;
     border-radius: 15px;
     background-color: #ffcc40;
-    border: 0px solid #fff;
+    border: 0;
     font-size: 30px;
     color: #375e97;
 }
@@ -47,8 +49,6 @@
     transition-duration: 0.4s;
     transform: scale(1.05);
 }
-
-
 
 .squares-left{
     height: 25px;
