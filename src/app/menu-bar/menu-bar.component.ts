@@ -5,16 +5,13 @@ import { MenuBarBtnService } from '../menu-bar-btn-service';
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.css']
 })
-export class MenuBarComponent implements OnInit {
+export class MenuBarComponent{
 
   constructor(private readonly menuBarBtnService: MenuBarBtnService) { }
 
   @Input() squaresNumber: number;
 
   // isToggled: boolean;
-
-  ngOnInit(): void {  
-  }
 
   stepBackToggle(): void {
     // this.isToggled = true;

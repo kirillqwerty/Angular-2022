@@ -26,9 +26,9 @@
     transition-duration: 0.4s;
     transform: scale(1.05);
 }
-.rotate-reset:hover{
-    transition-duration: 0.2s;
-    transform: rotate(-90deg);
+
+.rotate-reset:active{
+    transform:rotate(-90deg);  
 }
 
 .stepback-button{
@@ -48,6 +48,8 @@
     transform: scale(1.05);
 }
 
+
+
 .squares-left{
     height: 25px;
     margin-left: 70px;
@@ -55,37 +57,3 @@
     font-family: 'Silkscreen', cursive;
     font-weight: 400;
 }
-/* .field-9x9{
-    margin-left: 50px;
-    height: 50px;
-    width: 100px;
-    border-radius: 15px;
-    background-color: #ffcc40;
-    border: 0px solid #fff;
-    font-size: large;
-    color: #375e97;
-}
-
-.field-9x9:hover{
-    box-shadow: 0px 1px 31px 3px rgba(34, 60, 80, 0.2) inset;
-    transition-duration: 0.4s;
-    letter-spacing: 1px;
-    transform: scale(1.05);
-}
-
-.field-5x5{
-    height: 50px;
-    width: 100px;
-    border-radius: 15px;
-    background-color: #ffcc40;
-    border: 0px solid #fff;
-    font-size: large;
-    color: #375e97;
-}
-
-.field-5x5:hover{
-    box-shadow: 0px 1px 31px 3px rgba(34, 60, 80, 0.2) inset;
-    transition-duration: 0.4s;
-    letter-spacing: 1px;
-    transform: scale(1.05);
-} */

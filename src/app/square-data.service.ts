@@ -159,7 +159,7 @@ export class SquareDataService{
       this.winMessage();
     }
 
-    if(this.possibleSteps === 0){
+    if(this.possibleSteps === 0 && this.stepCounter !== SIZE*SIZE){
       this.loseMessage();
     }
   }

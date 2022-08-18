@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './game-field.component.html',
   styleUrls: ['./game-field.component.css']
 })
-export class GameFieldComponent implements OnInit {
+export class GameFieldComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

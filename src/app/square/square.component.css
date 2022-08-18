@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
-/* .squares-field{
-    margin: auto;
-    margin-top: 12.5px;
-    width: 675px;
-    height: 675px;
-    border-radius: 15px;
-} */
+
 .square{
     margin-top: 1px;
     margin-left: 3px;
@@ -37,6 +31,7 @@
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    line-height: 2em;
 }
 
 .square-complete{
@@ -48,6 +43,7 @@
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    line-height: 2em;
 }   
 
 .square-playable{
