@@ -156,11 +156,11 @@ export class SquareDataService{
     }
 
     if(this.stepCounter === SIZE*SIZE){
-      this.winMessage();
+      setTimeout(this.winMessage, 100);
     }
 
     if(this.possibleSteps === 0 && this.stepCounter !== SIZE*SIZE){
-      this.loseMessage();
+      setTimeout(this.loseMessage, 100);
     }
   }
 }
