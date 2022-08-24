@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="logo">
+        <label class="label-app-name-1st-row">COUNT YOUR</label>
+        <label class="label-app-name-2nd-row">POINTS</label>
+        <label class="label-copyright">© SoftClub edition</label>
+    </div>
+
+    <div class="container-inner">
+        <label for="input-search" class="search-label">Select players</label>
+        <input type="text" class="find-player">
+        <button class="add-players-btn" routerLink="" [disabled]="getPlayers().length >= 4">New player</button>
+        <a>🔍︎</a> 
+        <table>
+            <tr *ngFor="let player of getPlayers(); let i = index;">
+                <div class="player-info">
+                    <td style="margin-left: 15px;">{{player![0]}}</td>
+                    <td style="position: absolute; margin-left: 51%;">{{player![1]}}</td>
+                    <td class="cross" (click)="deletePlayer(i)">×</td>
+                </div>           
+            </tr>
+        </table>
+
+        <label class="choose-game-label">Choose game</label>
+        <button (click)="toggle501()" class="game-circle" [class.game-selected] = "is501Toggled">501</button>
+        <button (click)="toggle301()" class="game-circle" style="margin-left: 125px;" [class.game-selected] = "is301Toggled" >301</button>
+        <button class="start-button" (click)="setPlayers()" routerLink="/game" [disabled]="players.length < 2 || !isSelected">Start</button>
+    </div>
+</div>
+
+   

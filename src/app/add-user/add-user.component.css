@@ -6,6 +6,7 @@
     background: #009ce6;
     height: 495px;
     width: 300px;
+    user-select: none;
 }
 
 .btn-add{
@@ -16,6 +17,18 @@
     border-radius: 3px;
     padding: 0 auto;
     margin-top: 445px;
+    font-size: 19px;
+    color:#756e55
+}
+
+.btn-add:hover{
+    /* box-shadow: 0px 0px 22px 0px rgba(34, 60, 80, 0.25) inset; */
+    transition: 0.2;
+    transform: scale(1.05);
+}
+
+.btn-add:active{
+    box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
 }
 
 .input-container{
@@ -29,13 +42,19 @@
 
 input{
     margin-top: 40px;
-    width: 98%;
+    width: 97%;
     height: 39px;
     outline: none;
     border: none;
     border: solid 1px #f2f2f2;
     border-radius: 3px;
     position: relative;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.logo{
+    margin-left: 60px;
 }
 
 .label-nickname{    
@@ -43,14 +62,16 @@ input{
     color: #f2f2f2;
     position: absolute;
     margin-top: 17px;
+    font-size: 16px;
 }
 
 .label-email{
     width: 100%;
     color: #f2f2f2;
     position: absolute;
-    margin-top: 17px;
-    left:0%;
+    margin-top: 100px;
+    margin-left: -300px;
+    font-size: 16px;
 }
 
 .label-hint{
@@ -58,4 +79,5 @@ input{
     color: #f2f2f2;
     margin-left: 25px;
     margin-top: 160px;
-}
+    font-size: 16px;
+}   

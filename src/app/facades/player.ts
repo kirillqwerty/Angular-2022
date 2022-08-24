@@ -1,4 +1,4 @@
 export interface Player{
     nickName: string;
-    eMail: string;
+    eMail: string
 }

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&family=Silkscreen:wght@400;700&display=swap');
+
+.container{
+    width:600px;
+    height: 260px;
+    margin: 0 auto;
+    margin-top: 20%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.label-hint{
+    width: 600px;
+    height: 50%;
+    background: #009ce6;
+    color: #f2f2f2;
+    font-size: 33px;
+    text-align: center;
+}
+
+.buttons{
+    margin-left: 85px;
+    margin-top: 15px;
+}
+
+.add-btn{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    margin-right: 30px;
+    width: 200px;
+    height: 100px;
+    border-radius: 30px;
+    border: none;
+    font-size: 33px;
+    color: #756e55;
+    background: #ffd821;
+}
+
+.add-btn:hover{
+    transition: 0.2;
+    transform: scale(1.05);
+}
+
+.add-btn:active{
+    box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
+}
+
+.add-btn:disabled{
+    opacity: 0.3;
+}
+
+.next-btn{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    width: 200px;
+    height: 100px;
+    border-radius: 30px;
+    border: none;
+    font-size: 33px;
+    color: #f2f2f2;
+    background: rgb(52, 210, 152);
+}
+
+.next-btn:hover{
+    transition: 0.2;
+    transform: scale(1.05);
+}
+
+.next-btn:active{
+    box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
+}
+
+.next-btn:disabled{
+    opacity: 0.3;
+}

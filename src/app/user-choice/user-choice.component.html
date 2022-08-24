@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="label-hint">
+        Minimal number of players: 2
+        <br>Maximum number of players: 4
+        <br>Current number of players: {{getNumberOfPlayers()}}
+    </div>
+
+    <div class="buttons"> 
+        <button routerLink="" class="add-btn" [disabled]="getNumberOfPlayers() >= 4">Add player</button>
+        <button routerLink="/settings" class="next-btn" [disabled]="getNumberOfPlayers() < 2">Continue</button>
+    </div>
+</div>

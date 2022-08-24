@@ -1,13 +1,17 @@
-<div class = "window">
-    <label class="label-app-name-1st-row">COUNT YOUR</label>
-    <label class="label-app-name-2nd-row">POINTS</label>
-    <label class="label-copyright">© SoftClub edition</label>
+<form class = "window">
+    <div class="logo">
+        <label class="label-app-name-1st-row">COUNT YOUR</label>
+        <label class="label-app-name-2nd-row">POINTS</label>
+        <label class="label-copyright">© SoftClub edition</label>
+    </div>
+ 
     <label class="label-hint">Add a new player to start the game</label>
     <div  class="input-container">
-        <label class="label-nickname">Nickname</label>
-        <input>
-        <input>
-        <label class="label-email">e-mail</label>
+        <label class="label-nickname" for="nickname" >Nickname</label>
+        <input type="text" [(ngModel)]="playerForm.nickName" id="nickname" name="nickname" maxlength="20">
+        <label class="label-email" for="email">e-mail</label>
+        <input type="text" [(ngModel)]="playerForm.eMail" id="email" name="email">
     </div> 
-    <button class="btn-add">Add</button>
-</div>
+    <button routerLink="/choice" class="btn-add" type="button" (click)="addUser()">Add</button>
+
+</form>
