@@ -6,7 +6,11 @@
             <label class="label-app-name-2nd-row">POINTS</label>
             <label class="label-copyright">© SoftClub edition</label> 
         </div>     
-        <button class="btn-new-game" (click)="newGame()" routerLink="">New game</button>
+
+        <div class="btn-container">
+            <button class="btn-new-game" (click)="newGame()" routerLink="">New game</button>
+        </div>
+        
     </div>
 
 
@@ -40,18 +44,34 @@
                 </div>                                                
         </div>
         <button class="btn-add-step" type="button" (click)="setPlayers()">Add</button>
-        <!-- {{getScores()}} -->
     </div>
 
     <div class="game-table">
-        <div class="players-names-container">
-            <label  class="player-name-label-in-game" *ngFor="let player of players; let i = index;">{{player[0]}}</label>
-        </div>
-        <div class="scoreboard-container">
-            <div class="scoreboard-line">
 
+        <div class="step-column">
+            <div class="step-cell" *ngFor="let step of getSteps()">
+                <div class="step-number">
+                    <div *ngIf="step != '0'">{{step}}</div>
+                </div>          
             </div>
         </div>
+
+        <div class="players-names-container">
+            <div  class="player-name-label-in-game" *ngFor="let player of players; let i = index;">
+                {{player[0]}}
+            </div>
+        </div>
+
+        <div class="scoreboard-container">
+        
+            <div class="scoreboard-line" *ngFor="let allScores of getScores(); let i = index">
+                <div class="scores-inline" *ngFor="let playerScores of allScores.scoresRemain">
+                    {{playerScores}}
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 

@@ -4,7 +4,7 @@
     margin: 0 auto;
     width: 1000px;
     height: 1300px;
-    background: rgba(226, 182, 94, 0.613);
+    background: #039be5;
     font-family: 'Roboto', sans-serif;
     user-select: none;
 }
@@ -19,13 +19,16 @@
 .logo{
     transform: scale(0.75);
     height: 20em;
-    display: flex;
     margin-left: -90px;
 }
 
-.btn-new-game{
+.btn-container{
     position: absolute;
-    margin-top: -260px;
+    margin-top: -250px;
+    margin-left: 800px;
+}
+
+.btn-new-game{
     right: 830px;
     width: 150px;
     height: 40px;
@@ -113,7 +116,7 @@
 .multiply-btn{
     transform: scaleX(1.1);
     margin-top: 5px;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     width: 35px;
     height: 37px;
@@ -125,7 +128,7 @@
 .multiply-btn-selected{
     transform: scaleX(1.1);
     margin-top: 5px;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     width: 35px;
     height: 37px;
@@ -141,7 +144,7 @@
 .multiply-btn-radius{
     color:rgb(77, 80, 97);
     transform: scaleX(1.1);
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     width: 35px;
     height: 37px;
@@ -154,7 +157,7 @@
 .multiply-btn-radius-selected{
     color:#fefefe;
     transform: scaleX(1.1);
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     width: 35px;
     height: 37px;
@@ -208,16 +211,19 @@
     box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
 }
 
+.btn-add-step:disabled{
+    opacity: 0.3;
+}
+
 .game-table{
     width: 1000px;
     height: 3000px;
-    background-color: blanchedalmond;
+    background-color:#039be5;
 }
 
 .players-names-container{
     margin-top: 1px;
-    /* background-color:#039be5; */
-    background-color:#bd74b7;
+    background-color:#039be5;
     width: 800px;
     height: 74px;
     position: absolute;
@@ -228,12 +234,16 @@
 
 .player-name-label-in-game{
     margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 75px;
     font-weight: 400;
     font-size: 18px;
     color: rgb(254, 254, 254);
     width: 140px;
     height: 75px;
+    padding-bottom: 70px;
 }
 
 .scoreboard-container{
@@ -242,16 +252,47 @@
     margin-left: 100px;
     width: 800px;
     height: 2000px;
-    background-color:darkolivegreen;
+    background-color:#039be5;
 }
 
 .scoreboard-line{
     width: 800px;
     height: 50px;
-    background-color:#fefefe ;
+    background-color:#fefefe;
+    margin-top: 1px;
+    display: flex;
+    align-items: center; 
 }
 
+.scores-inline{
+    color:rgb(77, 80, 97);
+    margin: 0 auto;
+    font-size: 18px;
+}
 
+.step-column{
+    position: absolute;
+    background-color:#039be5;
+    width: 100px;
+    height: 2000px;
+    margin-top: 74px;
+}
+
+.step-cell{
+    background-color:#039be5;
+    width: 100px;
+    height: 50px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.step-number{
+    color: rgb(254, 254, 254);
+    margin: 0 auto;
+    font-size: 18px;
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

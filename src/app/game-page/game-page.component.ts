@@ -13,6 +13,7 @@ import { GameRules } from '../facades/rules';
 export class GamePageComponent implements OnInit{
 
     constructor(private readonly usersDataStreamService: UsersDataStreamService,
+        private readonly storageService: StorageService,
       private readonly gameService: GameService) {}
 
     ngOnInit(): void {
@@ -24,11 +25,20 @@ export class GamePageComponent implements OnInit{
 
     // public players = JSON.parse("[" + this.storageService.getAll() + "]");
 
-    public players = 
-    [['fqwe', 'fqwefwqef', 0],
-    ['fqwe', 'refrqfrfqrfqe', 1],
-    ['fewqfqwf', 'wfrqfqfrqfq', 2]];
+    // public players = 
+    // [['fqwe', 'fqwefwqef', 0],
+    // ['fqwe', 'refrqfrfqrfqe', 1],
+    // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
 
+    public players = 
+    [['Sherlock holmes', 'fqwefwqef', 0],
+    ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
+    ['Jim Moriarty', 'wfrqfqfrqfq', 2],
+    ['Bom Bomson', 'fqwefwqef', 3]];
+
+    // public players = 
+    // [['fcdsfqwe', 'fqwefwqef', 0],
+    // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
     public multipliers : number[][] = [];
 
@@ -93,18 +103,24 @@ export class GamePageComponent implements OnInit{
         sessionStorage.clear();
     }
 
-    getScores(){
-        // console.log("this is from component game page");
-        
-        // console.log(JSON.stringify(this.gameService.logScores));
+    getScores() {
+        return this.gameService.logScores.reverse();
+    }
 
-        // for (let i = 0; i <  + this.gameService.logScores.length; i++) {
+    getSteps()  {
+        return Object.keys(this.gameService.logScores).reverse();
+    }
 
-        //     console.log(JSON.stringify(this.gameService.logScores[i]));
-
-        //     console.log('step ' + this.gameService.logScores[i].stepNumber);
-        //     console.log('scores ' + this.gameService.logScores[i].scoresRemain);          
-        // }
+    checkCorrectInput() : boolean{
+        for (let i = 0; i < this.players.length; i++) {
+            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === '' ||
+                (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === '' ||                   
+                (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ''){
+                    return false
+                }
+            else continue;         
+        }    
+        return true;
     }
 
     // set301Rules(rules: GameRules){
@@ -116,13 +132,5 @@ export class GamePageComponent implements OnInit{
     // }
 
     
-    // public players = 
-    // [['Sherlock holmes', 'fqwefwqef', 0],
-    // ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-    // ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-    // ['Bom Bomson', 'fqwefwqef', 3]];
-
-    // public players = 
-    // [['fcdsfqwe', 'fqwefwqef', 0],
-    // ['qwefrff', 'refrqfrfqrfqe', 1]];
+    
 }

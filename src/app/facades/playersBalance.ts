@@ -1,10 +1,4 @@
-export class PlayerBalance{
-    stepNumber: number;
-    scoresRemain: number[];
-
-    constructor(stepNumber:number, scoresRemain: number[])
-    {
-        this.stepNumber = stepNumber;
-        this.scoresRemain = scoresRemain;
-    }
+export interface PlayerBalance{
+    stepNumber: number,
+    scoresRemain: number[]
 }
