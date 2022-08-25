@@ -9,7 +9,10 @@
     <div  class="input-container">
         <label class="label-nickname" for="nickname" >Nickname</label>
         <input type="text" [(ngModel)]="playerForm.nickName" id="nickname" name="nickname" maxlength="20">
-        <label class="label-email" for="email">e-mail</label>
+        <div class="label-email-wrapper"> 
+            <label class="label-email" for="email">e-mail</label>
+        </div>
+        
         <input type="text" [(ngModel)]="playerForm.eMail" id="email" name="email">
     </div> 
     <button routerLink="/choice" class="btn-add" type="button" (click)="addUser()">Add</button>

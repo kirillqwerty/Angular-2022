@@ -65,12 +65,18 @@ input{
     font-size: 16px;
 }
 
+.label-email-wrapper{
+    position: absolute;
+    width: 100px;
+    height: 39px;
+    background: #009ce6;
+    display: flex;
+    padding-top: 17px;
+}
+
 .label-email{
     width: 100%;
     color: #f2f2f2;
-    position: absolute;
-    margin-top: 100px;
-    margin-left: -300px;
     font-size: 16px;
 }
 
