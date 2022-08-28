@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&family=Silkscreen:wght@400;700&display=swap');
+
+.message-container{
+    position: absolute; /* or absolute */
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height:400px;
+    margin: -200px 0 0 -400px;
+    border-radius: 15px;
+    background: #039be5;
+    box-shadow: 0px 0px 44px 44px rgba(34, 60, 80, 0.08);
+    
+}
+
+.text-container{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 800px;
+    height: 200px;
+    background: #039be5;
+    box-shadow: 0px 1px 0px 0px rgba(94, 195, 244, 1);
+    display: flex;
+    align-items: center;  
+}
+
+.text-label{
+    font-size: 25px;
+    color:#fefefe;
+    margin: 0 auto;
+    letter-spacing: -1px;
+}
+
+.btn-container{
+    margin-top: 1px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 800px;
+    height: 199px;
+    background: #039be5;
+    display: flex;
+    align-items: center;
+}
+
+.confirm-btn{
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    width: 300px;
+    height: 75px;
+    border-radius: 3px;
+    border: none;
+    font-size: 25px;
+    color: #756e55;
+    background: #ffd726;
+    letter-spacing: -1px;
+}
+
+.confirm-btn:hover{
+    transition: 0.2;
+    transform: scale(1.02);
+}
+
+.confirm-btn:active{
+    box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
+}

@@ -18,9 +18,11 @@ export class GamePageComponent implements OnInit{
 
     ngOnInit(): void {
         // this.usersDataStreamService.game501Rules$.subscribe((rules) => this.set501Rules(rules));
-        // this.usersDataStreamService.game301Rules$.subscribe((rules) => this.set301Rules(rules));     
+        // this.usersDataStreamService.game301Rules$.subscribe((rules) => this.set301Rules(rules));
+    
         this.gameService.start(this.players);
         console.log("init");
+        this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
       }
 
     // public players = JSON.parse("[" + this.storageService.getAll() + "]");
@@ -43,7 +45,11 @@ export class GamePageComponent implements OnInit{
     public multipliers : number[][] = [];
 
     public step: PlayerStep[] = [];
+
+    public winner: string = '';
     
+    // public disable: boolean = true;
+
     setPlayers(){
         this.step = [];
         for (let i = 0; i < this.players.length; i++) {
@@ -57,8 +63,8 @@ export class GamePageComponent implements OnInit{
                 multiplierSecondTry: this.findMultiply(i, 2),         
                 multiplierThirdTry: this.findMultiply(i, 3)
               }
-            this.step.push(step);
-                
+            this.step.push(step);           
+
             (<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value = '';
             (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value = '';                 
             (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value = '';
@@ -111,16 +117,27 @@ export class GamePageComponent implements OnInit{
         return Object.keys(this.gameService.logScores).reverse();
     }
 
-    checkCorrectInput() : boolean{
-        for (let i = 0; i < this.players.length; i++) {
-            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === '' ||
-                (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === '' ||                   
-                (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ''){
-                    return false
-                }
-            else continue;         
-        }    
-        return true;
+    // checkCorrectInput(){
+    //     for (let i = 0; i < this.players.length; i++) {
+    //         if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === ""||
+    //         (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === "" ||                   
+    //         (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ""){
+    //             return true;
+    //         } 
+    //         else continue;                
+    //     }    
+    //     return false;
+    // }
+
+    winAlert(playerNumber: number){
+        this.winner = JSON.stringify(this.players[playerNumber][0]);
+    }
+
+    checkWinner() {
+        if (this.winner !== ''){
+            return true;
+        }
+        else return false;
     }
 
     // set301Rules(rules: GameRules){

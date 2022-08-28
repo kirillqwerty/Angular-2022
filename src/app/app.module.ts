@@ -11,6 +11,7 @@ import { UserChoiceComponent } from './user-choice/user-choice.component';
 import { StorageService } from './storage-serivce';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { WinMessageComponent } from './win-message/win-message.component';
 
 const appRoutes: Routes=[
   {path:'', component: AddUserComponent},
@@ -27,6 +28,7 @@ const appRoutes: Routes=[
     GameSettingsComponent,
     GamePageComponent,
     UserChoiceComponent,
+    WinMessageComponent,
   ],
   imports: [
     CommonModule,

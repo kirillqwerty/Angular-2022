@@ -1,6 +1,5 @@
-<div class="container">   
-
-    <div class="head">
+<div class="container" [ngClass]="{endgame: checkWinner()}">
+    <div class="head" >
         <div class="logo">
             <label class="label-app-name-1st-row">COUNT YOUR</label>
             <label class="label-app-name-2nd-row">POINTS</label>
@@ -12,15 +11,13 @@
         </div>
         
     </div>
-
-
+  
     <div class="menu-container">
         <div class="labels-container">
             <label class="dart-number-label">Dart 1</label>
             <label class="dart-number-label">Dart 2</label>
             <label class="dart-number-label">Dart 3</label>
         </div>
-
         <div class="players-container">
             <div class="score-input-container" *ngFor="let player of players; let i = index;">
                 <label class="player-name-label">{{player[0]}}</label>
@@ -62,17 +59,15 @@
             </div>
         </div>
 
-        <div class="scoreboard-container">
-        
+        <div class="scoreboard-container">      
             <div class="scoreboard-line" *ngFor="let allScores of getScores(); let i = index">
                 <div class="scores-inline" *ngFor="let playerScores of allScores.scoresRemain">
                     {{playerScores}}
                 </div>
             </div>
-
         </div>
 
     </div>
-
-
 </div>
+
+<app-win-message [winner]="winner" *ngIf="checkWinner() === true"></app-win-message>

@@ -9,6 +9,11 @@
     user-select: none;
 }
 
+.endgame {
+    filter: blur(8px); 
+    pointer-events:none;
+}
+
 .head{
     width: 1000px;
     height: 155px;

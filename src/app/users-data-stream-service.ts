@@ -8,14 +8,31 @@ import { GameRules } from "./facades/rules";
 })
 export class UsersDataStreamService {
 
+    public players: string[][] = [];
+
     public players$ = new Subject<string[]>;
+
+    public winner$ = new Subject<number>;
 
     public game501Rules$ = new Subject<GameRules>();
     public game301Rules$ = new Subject<GameRules>();
 
-    public changePlayersList(players: string[]) {
+    public addPlayers$ = new Subject<string[][]>;
+
+    public addPlayer(player: string[]){
+        this.players.push(player);
+        this.addPlayers$.next(this.players);
+    }
+
+    public setPlayersList(players: string[]) {
         this.players$.next(players);
     }
+
+    public setWinner(playerNumber: number) {
+        this.winner$.next(playerNumber);
+    }
+
+    
 
     // public setGameRules501(rules: GameRules) {
     //     this.game501Rules$.next(rules);

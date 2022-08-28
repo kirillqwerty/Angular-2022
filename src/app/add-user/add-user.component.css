@@ -31,6 +31,10 @@
     box-shadow: 0px 0px 22px -10px rgba(34, 60, 80, 0.78) inset;
 }
 
+.btn-add:disabled{
+    opacity: 0.3;
+}
+
 .input-container{
     background: #009ce6;
     width: 300px;

@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../facades/player';
 import { StorageService } from '../storage-serivce';
+import { UsersDataStreamService } from '../users-data-stream-service';
 @Component({
   selector: 'app-user-choice',
   templateUrl: './user-choice.component.html',
   styleUrls: ['./user-choice.component.css']
 })
-export class UserChoiceComponent{
+export class UserChoiceComponent implements OnInit{
 
-  constructor(private readonly storageService: StorageService) { }
+  constructor(private readonly storageService: StorageService, 
+   public usersDataStreamService: UsersDataStreamService) { }
 
-  getNumberOfPlayers(){
-    return sessionStorage.length;
+  public numberOfPlayers: number[] = [];
+
+  ngOnInit(): void {
+    this.numberOfPlayers = [1];
+    this.usersDataStreamService.addPlayers$.subscribe((players) => this.setUsers(players));
   }
+
+  setUsers(players: string[][]) {
+    console.log(players);
+  }
+
 }

@@ -8,24 +8,34 @@ import { GameService } from '../game-service';
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.css']
 })
-export class GameSettingsComponent {
+export class GameSettingsComponent implements OnInit{
 
   constructor(private readonly storageService: StorageService, 
     private readonly usersDataStreamService: UsersDataStreamService, 
     private readonly gameService: GameService) { }
 
+  ngOnInit(): void {
+      this.usersDataStreamService.addPlayers$.subscribe((players) => this.players = players);
+  }
+  public players: string[][] = [];
   public is301Toggled: boolean = false;
   public is501Toggled: boolean = false;
   public isSelected: boolean = false;
-  public players = JSON.parse("[" + this.storageService.getAll() + "]");
+  // public players = JSON.parse("[" + this.storageService.getAll() + "]");
 
   getPlayers() {
+    console.log(this.players);
     return this.players;
   }
 
+  // addPlayer(player: string[]) {
+  //   this.players.push(player)
+  // }
+
   deletePlayer(index: number){ 
-    this.storageService.deleteItem(this.players[index][2]);
-    this.players.splice(index, 1); 
+    // console.log('players from delete ');
+    // this.storageService.deleteItem(this.players[index][2]);
+    // this.players.splice(index, 1); 
   }
 
   toggle301(){
@@ -57,7 +67,7 @@ export class GameSettingsComponent {
   }
 
   setPlayers() : void{
-    this.usersDataStreamService.changePlayersList(this.players);
+    // this.usersDataStreamService.setPlayersList(this.players);
   }
 
 }
