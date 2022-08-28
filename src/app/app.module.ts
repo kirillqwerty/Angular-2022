@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { GameSettingsComponent } from './game-settings/game-settings.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { UserChoiceComponent } from './user-choice/user-choice.component';
-import { StorageService } from './storage-serivce';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { WinMessageComponent } from './win-message/win-message.component';
@@ -37,7 +36,6 @@ const appRoutes: Routes=[
     FormsModule,
     NoopAnimationsModule
   ],
-  providers: [StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

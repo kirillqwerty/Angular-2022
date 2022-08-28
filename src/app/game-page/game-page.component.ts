@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersDataStreamService } from '../users-data-stream-service';
-import { StorageService } from '../storage-serivce';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
 import { GameRules } from '../facades/rules';
@@ -13,7 +12,6 @@ import { GameRules } from '../facades/rules';
 export class GamePageComponent implements OnInit{
 
     constructor(private readonly usersDataStreamService: UsersDataStreamService,
-        private readonly storageService: StorageService,
       private readonly gameService: GameService) {}
 
     ngOnInit(): void {
@@ -24,8 +22,6 @@ export class GamePageComponent implements OnInit{
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
       }
-
-    // public players = JSON.parse("[" + this.storageService.getAll() + "]");
 
     // public players = 
     // [['fqwe', 'fqwefwqef', 0],
@@ -48,7 +44,7 @@ export class GamePageComponent implements OnInit{
 
     public winner: string = '';
     
-    // public disable: boolean = true;
+    public disable: boolean = true;
 
     setPlayers(){
         this.step = [];
@@ -106,7 +102,7 @@ export class GamePageComponent implements OnInit{
     }
   
     newGame(){
-        sessionStorage.clear();
+        this.usersDataStreamService.players = [];
     }
 
     getScores() {
@@ -117,17 +113,17 @@ export class GamePageComponent implements OnInit{
         return Object.keys(this.gameService.logScores).reverse();
     }
 
-    // checkCorrectInput(){
-    //     for (let i = 0; i < this.players.length; i++) {
-    //         if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === ""||
-    //         (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === "" ||                   
-    //         (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ""){
-    //             return true;
-    //         } 
-    //         else continue;                
-    //     }    
-    //     return false;
-    // }
+    checkCorrectInput(){
+        for (let i = 0; i < this.players.length; i++) {
+            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === ""||
+            (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === "" ||                   
+            (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ""){
+                this.disable = true;
+            } 
+            else continue;                
+        }
+        
+    }
 
     winAlert(playerNumber: number){
         this.winner = JSON.stringify(this.players[playerNumber][0]);

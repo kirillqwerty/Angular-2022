@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../storage-serivce';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameRules } from '../facades/rules';
 import { GameService } from '../game-service';
@@ -10,32 +9,25 @@ import { GameService } from '../game-service';
 })
 export class GameSettingsComponent implements OnInit{
 
-  constructor(private readonly storageService: StorageService, 
-    private readonly usersDataStreamService: UsersDataStreamService, 
+  constructor(public readonly usersDataStreamService: UsersDataStreamService, 
     private readonly gameService: GameService) { }
 
   ngOnInit(): void {
-      this.usersDataStreamService.addPlayers$.subscribe((players) => this.players = players);
+      
   }
-  public players: string[][] = [];
   public is301Toggled: boolean = false;
   public is501Toggled: boolean = false;
   public isSelected: boolean = false;
-  // public players = JSON.parse("[" + this.storageService.getAll() + "]");
+
 
   getPlayers() {
-    console.log(this.players);
-    return this.players;
+    return this.usersDataStreamService.players.length;
   }
 
-  // addPlayer(player: string[]) {
-  //   this.players.push(player)
-  // }
 
   deletePlayer(index: number){ 
-    // console.log('players from delete ');
-    // this.storageService.deleteItem(this.players[index][2]);
-    // this.players.splice(index, 1); 
+    this.usersDataStreamService.players.splice(index, 1);
+    console.log() 
   }
 
   toggle301(){

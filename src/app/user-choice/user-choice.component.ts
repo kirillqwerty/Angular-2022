@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../facades/player';
-import { StorageService } from '../storage-serivce';
 import { UsersDataStreamService } from '../users-data-stream-service';
 @Component({
   selector: 'app-user-choice',
@@ -9,8 +8,7 @@ import { UsersDataStreamService } from '../users-data-stream-service';
 })
 export class UserChoiceComponent implements OnInit{
 
-  constructor(private readonly storageService: StorageService, 
-   public usersDataStreamService: UsersDataStreamService) { }
+  constructor(public usersDataStreamService: UsersDataStreamService) { }
 
   public numberOfPlayers: number[] = [];
 
