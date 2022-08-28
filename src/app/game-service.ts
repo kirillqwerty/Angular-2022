@@ -22,26 +22,16 @@ export class GameService {
 
     private numOfPlayers: number = 0;
 
-    public currentRules: GameRules = {
-        301: false,
-        501: false
-    }
+    public is301Toggled: boolean = false;
 
-    set501Rules(rules: GameRules){
-        this.currentRules = rules;
-    }  
-
-    set301Rules(rules: GameRules){
-        this.currentRules = rules;
-    }
 
     start(players: any[][]){
         // console.log(this.currentRules);
         console.log('start triggered');
         let goal;
-        if (this.currentRules[301] === true) {
+        if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 9;
+        } else goal = 501;
 
         let startingPoints : number[] = [];
 

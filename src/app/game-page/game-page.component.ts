@@ -103,6 +103,7 @@ export class GamePageComponent implements OnInit{
   
     newGame(){
         this.usersDataStreamService.players = [];
+        this.gameService.logScores = [];
     }
 
     getScores() {
@@ -135,14 +136,6 @@ export class GamePageComponent implements OnInit{
         }
         else return false;
     }
-
-    // set301Rules(rules: GameRules){
-    //     this.gameService.set301Rules(rules);
-    // }
-
-    // set501Rules(rules: GameRules){
-    //     this.gameService.set501Rules(rules);
-    // }
 
     
     

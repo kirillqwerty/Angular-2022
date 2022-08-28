@@ -32,30 +32,20 @@ export class GameSettingsComponent implements OnInit{
 
   toggle301(){
 
-    let rules: GameRules = {
-      501: false,
-      301: true
-    }
-
     this.is301Toggled = true;
     this.is501Toggled = false;
     this.isSelected = true; 
     // this.usersDataStreamService.setGameRules301(rules);
-    this.gameService.set301Rules(rules);
+    this.gameService.is301Toggled = true;
   }
 
   toggle501(){
-
-    let rules: GameRules = {
-      501: true,
-      301: false
-    }
 
     this.is301Toggled = false;
     this.is501Toggled = true;
     this.isSelected = true;
     // this.usersDataStreamService.setGameRules501(rules);
-    this.gameService.set501Rules(rules);
+    this.gameService.is301Toggled = false;
   }
 
   setPlayers() : void{

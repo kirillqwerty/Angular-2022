@@ -14,8 +14,8 @@ export class UsersDataStreamService {
 
     public winner$ = new Subject<number>;
 
-    public game501Rules$ = new Subject<GameRules>();
-    public game301Rules$ = new Subject<GameRules>();
+    public is501RulesToggled$ = new Subject<boolean>();
+    // public game301Rules$ = new Subject<GameRules>();
 
     public addPlayers$ = new Subject<string[][]>;
 
