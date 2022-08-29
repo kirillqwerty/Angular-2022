@@ -7,9 +7,10 @@
 
     <div class="container-inner">
         <label for="input-search" class="search-label">Select players</label>
-        <input type="text" class="find-player">
+        <input type="text" class="find-player" placeholder="Search" id="search">
         <button class="add-players-btn" routerLink="" [disabled]="getPlayers() >= 4">New player</button>
-        <a>🔍︎</a> 
+        <a>🔍︎</a>
+        {{search()}}
         <table>
             <tr *ngFor="let player of usersDataStreamService.players; let i = index;">
                 <div class="player-info">

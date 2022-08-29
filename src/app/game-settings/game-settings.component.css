@@ -82,14 +82,6 @@ a{
     margin-left: 140px;
 }
 
-a:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-a:active{
-    color:#009ce6;
-}
 /*//////////*/
 
 .player-info{
@@ -195,3 +187,10 @@ table{
     color:#009ce6;
 }
 
+input[type="text"]{
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

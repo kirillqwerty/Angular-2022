@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
@@ -17,7 +17,6 @@ export class GamePageComponent implements OnInit{
     ngOnInit(): void {
         // this.usersDataStreamService.game501Rules$.subscribe((rules) => this.set501Rules(rules));
         // this.usersDataStreamService.game301Rules$.subscribe((rules) => this.set301Rules(rules));
-    
         this.gameService.start(this.players);
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
@@ -48,6 +47,7 @@ export class GamePageComponent implements OnInit{
 
     setPlayers(){
         this.step = [];
+        let errors = 0;
         for (let i = 0; i < this.players.length; i++) {
 
              let step: PlayerStep = {     
@@ -65,9 +65,46 @@ export class GamePageComponent implements OnInit{
             (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value = '';                 
             (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value = '';
         }
-        // console.log(this.step);
-        this.gameService.calculate(this.step);
-        this.multipliers = [];       
+
+        for (let i = 0; i < this.step.length; i++) {
+            if (isNaN(this.step[i].scoreFirstTry) ||
+                isNaN(this.step[i].scoreSecondTry) ||
+                isNaN(this.step[i].scoreThirdTry)) {
+                errors++;
+                    // alert('Enter all scores');
+            } else if ((this.step[i].multiplierFirstTry === 0 && (this.step[i].scoreFirstTry !== 50 && this.step[i].scoreFirstTry !== 25)) ||
+                        (this.step[i].multiplierSecondTry === 0 && (this.step[i].scoreSecondTry !== 50 && this.step[i].scoreSecondTry !== 25)) || 
+                        (this.step[i].multiplierThirdTry === 0 && (this.step[i].scoreThirdTry !== 50 && this.step[i].scoreThirdTry !== 25))) {
+                errors++;
+                    // alert('Select multipliers');
+            } else if ((this.step[i].scoreFirstTry > 20 && (this.step[i].scoreFirstTry !== 50 && this.step[i].scoreFirstTry !== 25)) ||
+                        (this.step[i].scoreSecondTry > 20 && (this.step[i].scoreSecondTry !== 50 && this.step[i].scoreSecondTry !== 25)) ||
+                        (this.step[i].scoreThirdTry > 20 && (this.step[i].scoreThirdTry !== 50  && this.step[i].scoreThirdTry !== 25))) {
+                errors++;        
+            } else if ((this.step[i].multiplierFirstTry !== 0 && (this.step[i].scoreFirstTry === 50 && this.step[i].scoreFirstTry === 25)) ||
+                        (this.step[i].multiplierSecondTry !== 0 && (this.step[i].scoreSecondTry === 50 && this.step[i].scoreSecondTry === 25)) ||
+                        (this.step[i].multiplierThirdTry !== 0 && (this.step[i].scoreThirdTry === 50  && this.step[i].scoreThirdTry === 25))){
+                errors++;            
+            } else if (this.step[i].scoreFirstTry < 0 ||
+                        this.step[i].scoreSecondTry < 0 ||
+                        this.step[i].scoreThirdTry < 0){
+                errors++;            
+            }      
+        }
+
+        this.multipliers = [];
+
+        if(errors === 0){
+            this.gameService.calculate(this.step); 
+        }
+        else {
+            alert("Incorrect input");
+            for (let i = 0; i < this.players.length; i++) {
+                this.step.pop();
+            }
+        }
+        console.log(this.step);
+
     }
     
    setMultiply(dart: number, multiply: number, playerNumber: number){
@@ -98,8 +135,8 @@ export class GamePageComponent implements OnInit{
                 return this.multipliers[i][1];
             }
         }
-        return 0;
-    }
+        return 1    ;
+    }   
   
     newGame(){
         this.usersDataStreamService.players = [];
@@ -116,15 +153,25 @@ export class GamePageComponent implements OnInit{
 
     checkCorrectInput(){
         for (let i = 0; i < this.players.length; i++) {
-            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value === ""||
-            (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value === "" ||                   
-            (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value === ""){
+            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`))?.value === ''||
+            (<HTMLInputElement>document.getElementById(`score2Try${i}Player`))?.value === '' ||                   
+            (<HTMLInputElement>document.getElementById(`score3Try${i}Player`))?.value === ''){
                 this.disable = true;
+                return true;
             } 
             else continue;                
         }
-        
+        this.disable = false;
+        return false;
     }
+
+    // test(){
+    //     for (let i = 0; i < this.players.length; i++) {
+    //         console.log((<HTMLInputElement>document.getElementById(`score1Try${i}Player`))?.value +
+    //         (<HTMLInputElement>document.getElementById(`score2Try${i}Player`))?.value +                   
+    //         (<HTMLInputElement>document.getElementById(`score3Try${i}Player`))?.value )            
+    //     }
+    // }
 
     winAlert(playerNumber: number){
         this.winner = JSON.stringify(this.players[playerNumber][0]);
