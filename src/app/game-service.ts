@@ -1,6 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
 import { PlayerStep } from "./facades/playerStep";
-import { GameRules } from "./facades/rules";
 import { PlayerBalance } from "./facades/playersBalance";
 import { UsersDataStreamService } from "./users-data-stream-service";
 

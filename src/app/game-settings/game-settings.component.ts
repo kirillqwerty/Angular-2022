@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersDataStreamService } from '../users-data-stream-service';
-import { GameRules } from '../facades/rules';
 import { GameService } from '../game-service';
 import { HtmlParser } from '@angular/compiler';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-game-settings',
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.css']
 })
-export class GameSettingsComponent implements OnInit{
+export class GameSettingsComponent {
 
-    constructor(public readonly usersDataStreamService: UsersDataStreamService, 
-    private readonly gameService: GameService) { }
-
-    ngOnInit(): void {
-        let input = document.querySelector('input');
-        input?.addEventListener('keyup', this.search);
+    constructor(public readonly usersDataStreamService: UsersDataStreamService, private readonly gameService: GameService) { 
+        this._createForm()
     }
     public is301Toggled: boolean = false;
     public is501Toggled: boolean = false;   
@@ -23,15 +19,23 @@ export class GameSettingsComponent implements OnInit{
     public searchCriteria: string = '';
     public searchResult: string[] = [];
 
+
+    searchForm!: FormGroup;
+
+    private _createForm (){
+        searchForm: FormGroup;
+        this.searchForm = new FormGroup({
+            player: new FormControl(''),
+        }   )
+    }
+
     getPlayers() {
-        console.log(this.usersDataStreamService.players);
         return this.usersDataStreamService.players.length;
     }
 
 
     deletePlayer(index: number){ 
-        this.usersDataStreamService.players.splice(index, 1);
-        console.log() 
+        this.usersDataStreamService.players.splice(index, 1); 
     }
 
     toggle301(){
@@ -56,14 +60,19 @@ export class GameSettingsComponent implements OnInit{
     // this.usersDataStreamService.setPlayersList(this.players);
     }
 
-    search() {
-        this.searchCriteria = JSON.stringify((<HTMLInputElement>document.getElementById('search')).value);     
-        let cloneArr = new Array(...this.usersDataStreamService.players);
+    search(searchWord: string) {   
+        let cloneArr = new Array(...this.usersDataStreamService.players[0]);
         for (let i = 0; i < cloneArr.length; i++) {
-            if (cloneArr[i][0].includes(this.searchCriteria) === true) {
+            console.log(cloneArr[i]);
+            console.log(searchWord);
+            if (String(cloneArr[i]).includes(String(searchWord)) === true) {
                 console.log('asdasdasd');
             }
         }         
     }   
+
+    log(){
+        this.searchForm.valueChanges.subscribe((searchWord: string) => this.search(searchWord));
+    }
 
 }

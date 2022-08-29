@@ -2,7 +2,6 @@ import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
-import { GameRules } from '../facades/rules';
 
 @Component({
     selector: 'app-game-page',
@@ -52,18 +51,18 @@ export class GamePageComponent implements OnInit{
 
              let step: PlayerStep = {     
                 playerNumber: i,              
-                scoreFirstTry: parseInt((<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value),
-                scoreSecondTry: parseInt((<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value),                    
-                scoreThirdTry: parseInt((<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value),              
+                scoreFirstTry: parseInt((document.getElementById(`score1Try${i}Player`) as HTMLInputElement).value),
+                scoreSecondTry: parseInt((document.getElementById(`score2Try${i}Player`) as HTMLInputElement).value),                    
+                scoreThirdTry: parseInt((document.getElementById(`score3Try${i}Player`) as HTMLInputElement).value),              
                 multiplierFirstTry: this.findMultiply(i, 1),
                 multiplierSecondTry: this.findMultiply(i, 2),         
                 multiplierThirdTry: this.findMultiply(i, 3)
               }
             this.step.push(step);           
 
-            (<HTMLInputElement>document.getElementById(`score1Try${i}Player`)).value = '';
-            (<HTMLInputElement>document.getElementById(`score2Try${i}Player`)).value = '';                 
-            (<HTMLInputElement>document.getElementById(`score3Try${i}Player`)).value = '';
+            (document.getElementById(`score1Try${i}Player`) as HTMLInputElement).value = '';
+            (document.getElementById(`score2Try${i}Player`) as HTMLInputElement).value = '';                 
+            (document.getElementById(`score3Try${i}Player`) as HTMLInputElement).value = '';
         }
 
         for (let i = 0; i < this.step.length; i++) {

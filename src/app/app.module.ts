@@ -11,7 +11,7 @@ import { UserChoiceComponent } from './user-choice/user-choice.component';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { WinMessageComponent } from './win-message/win-message.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 const appRoutes: Routes=[
   {path:'', component: AddUserComponent},
   {path:'choice', component: UserChoiceComponent},
@@ -34,7 +34,8 @@ const appRoutes: Routes=[
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    ReactiveFormsModule    
   ],
   bootstrap: [AppComponent]
 })

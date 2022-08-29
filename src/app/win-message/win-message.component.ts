@@ -6,12 +6,9 @@ import { Input } from '@angular/core';
   templateUrl: './win-message.component.html',
   styleUrls: ['./win-message.component.css']
 })
-export class WinMessageComponent implements OnInit {
+export class WinMessageComponent{
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   @Input() winner: string = ''; 
 

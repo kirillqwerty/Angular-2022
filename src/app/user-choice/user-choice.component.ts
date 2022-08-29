@@ -14,7 +14,7 @@ export class UserChoiceComponent implements OnInit{
 
   ngOnInit(): void {
     this.numberOfPlayers = [1];
-    this.usersDataStreamService.addPlayers$.subscribe((players) => this.setUsers(players));
+    // this.usersDataStreamService.addPlayers$.subscribe((players) => this.setUsers(players));
   }
 
   setUsers(players: string[][]) {
