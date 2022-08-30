@@ -58,7 +58,7 @@
         <div class="step-column">
             <div class="step-cell" *ngFor="let step of getSteps()">
                 <div class="step-number">
-                    <div *ngIf="step != '0'">{{step}}</div>
+                    <div *ngIf="step !== '0'">{{step}}</div>
                 </div>          
             </div>
         </div>

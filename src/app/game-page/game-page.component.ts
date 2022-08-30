@@ -24,17 +24,17 @@ export class GamePageComponent implements OnInit{
     // ['fqwe', 'refrqfrfqrfqe', 1],
     // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
 
-    // public players = 
-    // [['Sherlock holmes', 'fqwefwqef', 0],
-    // ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-    // ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-    // ['Bom Bomson', 'fqwefwqef', 3]];
+    public players = 
+    [['Sherlock Holmes', 'fqwefwqef', 0],
+    ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
+    ['Jim Moriarty', 'wfrqfqfrqfq', 2],
+    ['Bom Bomson', 'fqwefwqef', 3]];
 
     // public players = 
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
-    public players = this.usersDataStreamService.players;
+    // public players = this.usersDataStreamService.players;
 
     public multipliers : number[][] = [];
 
@@ -94,9 +94,19 @@ export class GamePageComponent implements OnInit{
         this.multipliers = [];
 
         if(errors === 0){
-            this.gameService.calculate(this.step); 
+            switch (this.gameService.calculate(this.step)) {
+                case 'win':
+
+                    break;
+                case 'retry':
+                    alert('retry');
+                    break;
+                case 'overscored':
+                    alert('overscored');
+                    break; 
+            }
         }
-        else {
+            else {
             alert("Incorrect input");
             for (let i = 0; i < this.players.length; i++) {
                 this.step.pop();
@@ -151,9 +161,9 @@ export class GamePageComponent implements OnInit{
 
     checkCorrectInput(){
         for (let i = 0; i < this.players.length; i++) {
-            if((<HTMLInputElement>document.getElementById(`score1Try${i}Player`))?.value === ''||
-            (<HTMLInputElement>document.getElementById(`score2Try${i}Player`))?.value === '' ||                   
-            (<HTMLInputElement>document.getElementById(`score3Try${i}Player`))?.value === ''){
+            if((document.getElementById(`score1Try${i}Player`) as HTMLInputElement)?.value === ''||
+            (document.getElementById(`score2Try${i}Player`) as HTMLInputElement)?.value === '' ||                   
+            (document.getElementById(`score3Try${i}Player`) as HTMLInputElement)?.value === ''){
                 this.disable = true;
                 return true;
             } 

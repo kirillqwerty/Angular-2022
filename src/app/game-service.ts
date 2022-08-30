@@ -2,6 +2,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { PlayerStep } from "./facades/playerStep";
 import { PlayerBalance } from "./facades/playersBalance";
 import { UsersDataStreamService } from "./users-data-stream-service";
+import { retry } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +31,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 501;
+        } else goal = 50;
 
         let startingPoints : number[] = [];
 
@@ -58,8 +59,7 @@ export class GameService {
         let scores = new Array(...this.logScores);
 
         for (let i = 0; i < scores.length; i++) {
-            scoresClone[i] = scores[i].scoresRemain.slice();
-          
+            scoresClone[i] = scores[i].scoresRemain.slice();      
         }
         for (let i = 0; i < scoresClone[this.stepNumber].length; i++) {
             scoresClone[this.stepNumber][i] = scoresClone[this.stepNumber][i] -
@@ -67,31 +67,38 @@ export class GameService {
             step[i].scoreSecondTry * step[i].multiplierSecondTry - 
             step[i].scoreThirdTry * step[i].multiplierThirdTry;
 
-            if(scoresClone[this.stepNumber][i] === 0) {
-                this.winAlert(i);
+            if(scoresClone[this.stepNumber][i] === 0){
+                if (step[i].multiplierFirstTry === 2 || 
+                    step[i].multiplierSecondTry === 2 || 
+                    step[i].multiplierThirdTry === 2 ||
+                    step[i].scoreFirstTry === 50 ||
+                    step[i].scoreFirstTry === 25 ||
+                    step[i].scoreSecondTry === 50 ||
+                    step[i].scoreSecondTry === 25 ||
+                    step[i].scoreThirdTry === 50 ||
+                    step[i].scoreThirdTry === 25)  {                 
+                        this.winAlert(i);
+                        return 'win';
+                } else {
+                    return 'retry'
+                }
+
+            } else if(scoresClone[this.stepNumber][i] < 0) {
+                return "overscored"
             }
         }
-
-        
+     
         for (let i = 0; i < scoresClone.length - 1; i++) {
             scoresClone.shift();
         }
         this.stepNumber++;
 
-        console.log("this is logScores");
-        console.log(this.logScores);
-        
-        console.log("this is scoreClone");
-        console.log(scoresClone);
-        
         let balance = {
             stepNumber: this.stepNumber,
             scoresRemain: scoresClone[0],
         }   
         this.logScores.push(balance)
-
-        console.log("this is updated logScores");
-        console.log(this.logScores);
+        return true;
     }
 
     winAlert(winnerNumber: number){
