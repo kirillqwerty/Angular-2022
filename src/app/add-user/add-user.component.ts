@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Player } from '../facades/player';
 import { FormsModule } from '@angular/forms';
 import { UsersDataStreamService } from '../users-data-stream-service';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -10,7 +12,7 @@ import { UsersDataStreamService } from '../users-data-stream-service';
 })
 export class AddUserComponent{
 
-    constructor(private usersDataStreamService: UsersDataStreamService) { }
+    constructor(private usersDataStreamService: UsersDataStreamService,private router: Router) { }
 
     public disableButton: boolean = true;
 
@@ -24,8 +26,12 @@ export class AddUserComponent{
     addUser(){
         if(this.checkUniqueUser() === true && this.checkCorrectEmail() === true) {
             this.usersDataStreamService.addPlayer([this.playerForm.nickName, this.playerForm.eMail]);
+            this.router.navigate(['/choice']);
         }   
-        else alert("incorrect inputs"); 
+        else {
+            alert("incorrect inputs");
+            this.router.navigate(['']);
+        } 
     }
 
     checkUniqueUser(){

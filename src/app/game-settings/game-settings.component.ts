@@ -27,7 +27,7 @@ export class GameSettingsComponent {
         // searchForm: FormGroup;
         this.searchForm = new FormGroup({
             player: new FormControl(''),
-        }   )
+        })
     }
 
     getPlayers() {
@@ -65,8 +65,8 @@ export class GameSettingsComponent {
         this.searchResult = [];
         if(searchWord !== '') {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
-                if (this.usersDataStreamService.players[i][0].indexOf(searchWord) !== -1 ||
-                    this.usersDataStreamService.players[i][1].indexOf(searchWord) !== -1) {
+                if (this.usersDataStreamService.players[i][0].toLowerCase().indexOf(searchWord.toLowerCase()) !== -1 ||
+                    this.usersDataStreamService.players[i][1].toLowerCase().indexOf(searchWord.toLowerCase()) !== -1) {
                     this.searchResult.push(this.usersDataStreamService.players[i]);
                 } else continue;      
             }

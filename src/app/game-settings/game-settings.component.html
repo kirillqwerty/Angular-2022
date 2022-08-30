@@ -27,7 +27,7 @@
         <label class="choose-game-label">Choose game</label>
         <button (click)="toggle501()" class="game-circle" [class.game-selected] = "is501Toggled">501</button>
         <button (click)="toggle301()" class="game-circle" style="margin-left: 125px;" [class.game-selected] = "is301Toggled" >301</button>
-        <button class="start-button" (click)="setPlayers()" routerLink="/game" [disabled]="usersDataStreamService.players.length < 2 || !isSelected">Start</button>
+        <button class="start-button" (click)="setPlayers()" routerLink = "/game" [disabled] = "usersDataStreamService.players.length < 2 || !isSelected">Start</button>
     </div>
 </div>
 
