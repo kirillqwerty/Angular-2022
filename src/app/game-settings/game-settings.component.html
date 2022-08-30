@@ -8,14 +8,14 @@
     <div class="container-inner">
         <form   [formGroup]="searchForm" novalidate>
             <label for="input-search" class="search-label">Select players</label>
-            <input type="text" (input)="log()" class="find-player" placeholder="Search" formControlName="player" />
+            <input type="text" class="find-player" placeholder="Search" formControlName="player" />
             <a>🔍︎</a>
         </form>
         
         <button class="add-players-btn" routerLink="" [disabled]="getPlayers() >= 4">New player</button>
         
         <table>
-            <tr *ngFor="let player of usersDataStreamService.players; let i = index;">
+            <tr *ngFor="let player of searchResult; let i = index;">
                 <div class="player-info">
                     <td style="margin-left: 15px;">{{player![0]}}</td>
                     <td style="position: absolute; margin-left: 51%;">{{player![1]}}</td>

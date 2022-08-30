@@ -11,19 +11,20 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class GameSettingsComponent {
 
     constructor(public readonly usersDataStreamService: UsersDataStreamService, private readonly gameService: GameService) { 
-        this._createForm()
+        this._createForm();
+        this.searchResult = this.usersDataStreamService.players;
+        this.searchForm.valueChanges.subscribe((searchWord:any) => this.search(searchWord.player));
     }
     public is301Toggled: boolean = false;
     public is501Toggled: boolean = false;   
     public isSelected: boolean = false;
-    public searchCriteria: string = '';
-    public searchResult: string[] = [];
+    public searchResult: string[][] = [];
 
 
     searchForm!: FormGroup;
 
     private _createForm (){
-        searchForm: FormGroup;
+        // searchForm: FormGroup;
         this.searchForm = new FormGroup({
             player: new FormControl(''),
         }   )
@@ -60,19 +61,19 @@ export class GameSettingsComponent {
     // this.usersDataStreamService.setPlayersList(this.players);
     }
 
-    search(searchWord: string) {   
-        let cloneArr = new Array(...this.usersDataStreamService.players[0]);
-        for (let i = 0; i < cloneArr.length; i++) {
-            console.log(cloneArr[i]);
-            console.log(searchWord);
-            if (String(cloneArr[i]).includes(String(searchWord)) === true) {
-                console.log('asdasdasd');
+    search(searchWord: string) {  
+        this.searchResult = [];
+        if(searchWord !== '') {
+            for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
+                if (this.usersDataStreamService.players[i][0].indexOf(searchWord) !== -1 ||
+                    this.usersDataStreamService.players[i][1].indexOf(searchWord) !== -1) {
+                    this.searchResult.push(this.usersDataStreamService.players[i]);
+                } else continue;      
             }
-        }         
+        } 
+        
+        if (this.searchResult.length === 0 && searchWord === '')  {
+            this.searchResult = this.usersDataStreamService.players;
+        }
     }   
-
-    log(){
-        this.searchForm.valueChanges.subscribe((searchWord: string) => this.search(searchWord));
-    }
-
 }

@@ -14,27 +14,27 @@ export class GamePageComponent implements OnInit{
       private readonly gameService: GameService) {}
 
     ngOnInit(): void {
-        // this.usersDataStreamService.game501Rules$.subscribe((rules) => this.set501Rules(rules));
-        // this.usersDataStreamService.game301Rules$.subscribe((rules) => this.set301Rules(rules));
         this.gameService.start(this.players);
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
-      }
+    }
 
     // public players = 
     // [['fqwe', 'fqwefwqef', 0],
     // ['fqwe', 'refrqfrfqrfqe', 1],
     // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
 
-    public players = 
-    [['Sherlock holmes', 'fqwefwqef', 0],
-    ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-    ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-    ['Bom Bomson', 'fqwefwqef', 3]];
+    // public players = 
+    // [['Sherlock holmes', 'fqwefwqef', 0],
+    // ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
+    // ['Jim Moriarty', 'wfrqfqfrqfq', 2],
+    // ['Bom Bomson', 'fqwefwqef', 3]];
 
     // public players = 
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
+
+    public players = this.usersDataStreamService.players;
 
     public multipliers : number[][] = [];
 
@@ -115,7 +115,6 @@ export class GamePageComponent implements OnInit{
             else continue;
         }
         this.multipliers.push([dart, multiply, playerNumber]);
-        // console.log(this.multipliers);  
     }
 
    updateMultiply(dart: number, multiply: number, playerNumber: number){   
@@ -134,7 +133,7 @@ export class GamePageComponent implements OnInit{
                 return this.multipliers[i][1];
             }
         }
-        return 1    ;
+        return 1;
     }   
   
     newGame(){
@@ -164,14 +163,6 @@ export class GamePageComponent implements OnInit{
         return false;
     }
 
-    // test(){
-    //     for (let i = 0; i < this.players.length; i++) {
-    //         console.log((<HTMLInputElement>document.getElementById(`score1Try${i}Player`))?.value +
-    //         (<HTMLInputElement>document.getElementById(`score2Try${i}Player`))?.value +                   
-    //         (<HTMLInputElement>document.getElementById(`score3Try${i}Player`))?.value )            
-    //     }
-    // }
-
     winAlert(playerNumber: number){
         this.winner = JSON.stringify(this.players[playerNumber][0]);
     }
@@ -181,8 +172,5 @@ export class GamePageComponent implements OnInit{
             return true;
         }
         else return false;
-    }
-
-    
-    
+    }  
 }
