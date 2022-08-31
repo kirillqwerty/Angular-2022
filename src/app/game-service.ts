@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { PlayerStep } from "./facades/playerStep";
 import { PlayerBalance } from "./facades/playersBalance";
 import { UsersDataStreamService } from "./users-data-stream-service";
-import { retry } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -10,17 +9,11 @@ import { retry } from "rxjs";
 
 export class GameService {
    
-
     constructor(public usersDataStreamService: UsersDataStreamService){}
 
     public logScores: PlayerBalance[] = [];
-    //currentScore объявить в функции
-    
-    // private currentScores: number[] = [];
-    private previousScores: number[] = [];
-    private stepNumber: number = 0;
 
-    private numOfPlayers: number = 0;
+    private stepNumber: number = 0;
 
     public is301Toggled: boolean = false;
 
@@ -31,7 +24,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 50;
+        } else goal = 501;
 
         let startingPoints : number[] = [];
 

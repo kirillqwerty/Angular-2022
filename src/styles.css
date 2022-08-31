@@ -3,8 +3,11 @@ body{
     background: #009ce6;
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
+    
 }
-
+::-webkit-scrollbar {
+    width: 0;
+}
 /* GAME-logo design*/
 .label-app-name-1st-row{
     position: absolute;

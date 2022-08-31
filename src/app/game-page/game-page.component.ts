@@ -1,7 +1,9 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'app-game-page',
@@ -11,12 +13,42 @@ import { PlayerStep } from '../facades/playerStep';
 export class GamePageComponent implements OnInit{
 
     constructor(private readonly usersDataStreamService: UsersDataStreamService,
-      private readonly gameService: GameService) {}
+        private readonly gameService: GameService,
+        ) {
+        this._createForm();
+    }
+
+    scoreInputForm: FormGroup [] = [];
+
+    private _createForm(){
+        for (let i = 0; i < this.players.length; i++) {
+            let inputsGroup = new FormGroup({
+                score1try: new FormControl,
+                score2try: new FormControl,
+                score3try: new FormControl       
+            })
+            this.scoreInputForm.push(inputsGroup);
+        }
+    }
+
+    test(){
+        console.log(this.scoreInputForm);
+    }
+
+    testValue(){
+        console.log( this.scoreInputForm[0].controls['score1try'].value);
+    }
 
     ngOnInit(): void {
         this.gameService.start(this.players);
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
+
+        for (let i = 0; i < this.players.length; i++) {
+            for (let j = 0; j <= 3; j++) {
+                this.setMultiply(j, 1, i);
+            }        
+        }
     }
 
     // public players = 
@@ -37,32 +69,30 @@ export class GamePageComponent implements OnInit{
     // public players = this.usersDataStreamService.players;
 
     public multipliers : number[][] = [];
-
     public step: PlayerStep[] = [];
-
     public winner: string = '';
-    
     public disable: boolean = true;
 
     setPlayers(){
         this.step = [];
         let errors = 0;
         for (let i = 0; i < this.players.length; i++) {
-
-             let step: PlayerStep = {     
+            let step: PlayerStep = {     
                 playerNumber: i,              
-                scoreFirstTry: parseInt((document.getElementById(`score1Try${i}Player`) as HTMLInputElement).value),
-                scoreSecondTry: parseInt((document.getElementById(`score2Try${i}Player`) as HTMLInputElement).value),                    
-                scoreThirdTry: parseInt((document.getElementById(`score3Try${i}Player`) as HTMLInputElement).value),              
+                scoreFirstTry: this.scoreInputForm[i].controls['score1try'].value,
+                scoreSecondTry: this.scoreInputForm[i].controls['score2try'].value,                 
+                scoreThirdTry: this.scoreInputForm[i].controls['score3try'].value,             
                 multiplierFirstTry: this.findMultiply(i, 1),
                 multiplierSecondTry: this.findMultiply(i, 2),         
                 multiplierThirdTry: this.findMultiply(i, 3)
-              }
-            this.step.push(step);           
+            }
+            
+            this.step.push(step);    
+            for (let j = 0; j <= 3; j++) {
+                this.setMultiply(j, 1, i);
+            }        
 
-            (document.getElementById(`score1Try${i}Player`) as HTMLInputElement).value = '';
-            (document.getElementById(`score2Try${i}Player`) as HTMLInputElement).value = '';                 
-            (document.getElementById(`score3Try${i}Player`) as HTMLInputElement).value = '';
+            this.scoreInputForm[i].reset();
         }
 
         for (let i = 0; i < this.step.length; i++) {
@@ -91,12 +121,9 @@ export class GamePageComponent implements OnInit{
             }      
         }
 
-        this.multipliers = [];
-
         if(errors === 0){
             switch (this.gameService.calculate(this.step)) {
                 case 'win':
-
                     break;
                 case 'retry':
                     alert('retry');
@@ -113,7 +140,6 @@ export class GamePageComponent implements OnInit{
             }
         }
         console.log(this.step);
-
     }
     
    setMultiply(dart: number, multiply: number, playerNumber: number){
@@ -159,28 +185,11 @@ export class GamePageComponent implements OnInit{
         return Object.keys(this.gameService.logScores).reverse();
     }
 
-    checkCorrectInput(){
-        for (let i = 0; i < this.players.length; i++) {
-            if((document.getElementById(`score1Try${i}Player`) as HTMLInputElement)?.value === ''||
-            (document.getElementById(`score2Try${i}Player`) as HTMLInputElement)?.value === '' ||                   
-            (document.getElementById(`score3Try${i}Player`) as HTMLInputElement)?.value === ''){
-                this.disable = true;
-                return true;
-            } 
-            else continue;                
-        }
-        this.disable = false;
-        return false;
-    }
-
     winAlert(playerNumber: number){
         this.winner = JSON.stringify(this.players[playerNumber][0]);
     }
 
     checkWinner() {
-        if (this.winner !== ''){
-            return true;
-        }
-        else return false;
+        return this.winner !== '';
     }  
 }

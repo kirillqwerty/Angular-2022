@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&family=Silkscreen:wght@400;700&display=swap');
 
+
 .window{
     margin: 0 auto;
     margin-top: 10%;
@@ -7,6 +8,7 @@
     height: 495px;
     width: 300px;
     user-select: none;
+    
 }
 
 .btn-add{

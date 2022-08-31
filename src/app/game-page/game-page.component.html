@@ -21,19 +21,16 @@
             <label class="dart-number-label">Dart 2</label>
             <label class="dart-number-label">Dart 3</label>
         </div>
-        
-        
+
         <div class="players-container">
-            <div class="score-input-container" *ngFor="let player of players; let i = index;">
-                <label class="player-name-label">{{player[0]}}</label>
+            <div  class="score-input-container" *ngFor="let group of scoreInputForm; let i = index;">
+                <label class="player-name-label">{{players[i][0]}}</label>
 
-                <div class="inputs-column">
-                    <input type="number" value="" id="score1Try{{i}}Player" style="margin-top: 5px;" class="score-input">
-                    <input type="number" value="" id="score2Try{{i}}Player" style="margin-top: 5px;" class="score-input">
-                    <input type="number" value="" id="score3Try{{i}}Player" style="margin-top: 5px;" class="score-input">    
+                <div [formGroup]=group class="inputs-column">
+                    <input type="number" formControlName="score1try" style="margin-top: 5px;" class="score-input"/>
+                    <input type="number" formControlName="score2try" style="margin-top: 5px;" class="score-input"/>
+                    <input type="number" formControlName="score3try" style="margin-top: 5px;" class="score-input"/>
                 </div>
-
-                
 
                 <div class="buttons-column">
                     <button class="multiply-btn" (click)="setMultiply(1,1,i)" [class.multiply-btn-selected]="updateMultiply(1,1,i)">1x</button>
@@ -46,6 +43,7 @@
                     <button class="multiply-btn" (click)="setMultiply(3,2,i)" [class.multiply-btn-selected]="updateMultiply(3,2,i)">2x</button>                                
                     <button class="multiply-btn-radius" (click)="setMultiply(3,3,i)" [class.multiply-btn-radius-selected]="updateMultiply(3,3,i)">3x</button>                      
                 </div>
+
             </div>                                                
         </div>
             <button class="btn-add-step" type="button" (click)="setPlayers()">Add</button>

@@ -15,20 +15,20 @@ export class GameSettingsComponent {
         this.searchResult = this.usersDataStreamService.players;
         this.searchForm.valueChanges.subscribe((searchWord:any) => this.search(searchWord.player));
     }
+
+    searchForm!: FormGroup;
+
+    private _createForm (){
+        this.searchForm = new FormGroup({
+            player: new FormControl(''),
+        })
+    }
+
     public is301Toggled: boolean = false;
     public is501Toggled: boolean = false;   
     public isSelected: boolean = false;
     public searchResult: string[][] = [];
 
-
-    searchForm!: FormGroup;
-
-    private _createForm (){
-        // searchForm: FormGroup;
-        this.searchForm = new FormGroup({
-            player: new FormControl(''),
-        })
-    }
 
     getPlayers() {
         return this.usersDataStreamService.players.length;
