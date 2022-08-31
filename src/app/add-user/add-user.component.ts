@@ -64,7 +64,6 @@ export class AddUserComponent{
         if (this.playerForm.nickName === "") {
             return true;
         }
-
         return false;
     }
 
