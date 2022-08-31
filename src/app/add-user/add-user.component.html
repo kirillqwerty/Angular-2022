@@ -12,9 +12,8 @@
         <div class="label-email-wrapper"> 
             <label class="label-email" for="email">e-mail</label>
         </div>
-        {{checkEmptyInputs()}}
         <input type="text" [(ngModel)]="playerForm.eMail" id="email" name="email">
     </div>  
-    <button class="btn-add" type="button" (click)="addUser()" [disabled]="disableButton" >Add</button>
+    <button class="btn-add" type="button" (click)="addUser()" [disabled]="checkEmptyInputs()" >Add</button>
 
 </form>

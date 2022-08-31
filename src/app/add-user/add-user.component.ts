@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Player } from '../facades/player';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class AddUserComponent{
 
-    constructor(private usersDataStreamService: UsersDataStreamService,private router: Router) { }
+    constructor(private usersDataStreamService: UsersDataStreamService,
+        private router: Router) { }
 
     public disableButton: boolean = true;
 
@@ -23,10 +24,16 @@ export class AddUserComponent{
       eMail: '',
     }
 
+    regUser!: FormGroup;
+
     addUser(){
-        if(this.checkUniqueUser() === true && this.checkCorrectEmail() === true) {
-            this.usersDataStreamService.addPlayer([this.playerForm.nickName, this.playerForm.eMail]);
-            this.router.navigate(['/choice']);
+        if(this.checkCorrectEmail()) {
+            if (this.checkUniqueUser()) {
+                this.usersDataStreamService.addPlayer([this.playerForm.nickName, this.playerForm.eMail]);
+                this.router.navigate(['/choice']);
+            }
+            else alert("user already exist");
+            
         }   
         else {
             alert("incorrect inputs");
@@ -54,11 +61,11 @@ export class AddUserComponent{
     }
 
     checkEmptyInputs(){
-        if ((<HTMLInputElement>document.getElementById('nickname')).value === "") {
-            this.disableButton = true;
+        if (this.playerForm.nickName === "") {
+            return true;
         }
 
-        else this.disableButton = false;
+        return false;
     }
 
 }

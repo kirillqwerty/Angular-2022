@@ -56,17 +56,17 @@ export class GamePageComponent implements OnInit{
     // ['fqwe', 'refrqfrfqrfqe', 1],
     // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
 
-    public players = 
-    [['Sherlock Holmes', 'fqwefwqef', 0],
-    ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-    ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-    ['Bom Bomson', 'fqwefwqef', 3]];
+    // public players = 
+    // [['Sherlock Holmes', 'fqwefwqef', 0],
+    // ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
+    // ['Jim Moriarty', 'wfrqfqfrqfq', 2],
+    // ['Bom Bomson', 'fqwefwqef', 3]];
 
     // public players = 
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
-    // public players = this.usersDataStreamService.players;
+    public players = this.usersDataStreamService.players;
 
     public multipliers : number[][] = [];
     public step: PlayerStep[] = [];
