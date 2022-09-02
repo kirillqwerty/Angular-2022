@@ -56,10 +56,10 @@ export class GameService {
         }
         for (let i = 0; i < scoresClone[this.stepNumber].length; i++) {
             scoresClone[this.stepNumber][i] = scoresClone[this.stepNumber][i] -
-            step[i].scoreFirstTry * step[i].multiplierFirstTry - 
-            step[i].scoreSecondTry * step[i].multiplierSecondTry - 
-            step[i].scoreThirdTry * step[i].multiplierThirdTry;
-
+            (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number)- 
+            (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) - 
+            (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);
+            
             if(scoresClone[this.stepNumber][i] === 0){
                 if (step[i].multiplierFirstTry === 2 || 
                     step[i].multiplierSecondTry === 2 || 

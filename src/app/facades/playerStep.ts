@@ -1,9 +1,9 @@
 export interface PlayerStep{
-    playerNumber:number,              
-    scoreFirstTry:number,
-    scoreSecondTry :number                    
-    scoreThirdTry :number,
-    multiplierFirstTry:number,
-    multiplierSecondTry :number,        
-    multiplierThirdTry :number,
+    playerNumber: number,              
+    scoreFirstTry: number | null,
+    scoreSecondTry: number | null,                    
+    scoreThirdTry: number | null,
+    multiplierFirstTry: number | null,
+    multiplierSecondTry: number | null,        
+    multiplierThirdTry: number | null,
 }
