@@ -3,7 +3,6 @@ import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IFormGroup, IFormBuilder, IFormArray } from '@rxweb/types';
 
 @Component({
     selector: 'app-game-page',
@@ -149,12 +148,9 @@ export class GamePageComponent implements OnInit {
             }
 
         }
-        else {
-            alert("Incorrect input");
-            for (let i = 0; i < this.players.length; i++) {
-                this.step.pop();
-            }
-        }
+
+        this.manageScores.markAsUntouched();
+
         console.log(this.step);
         console.log(this.gameService.logScores);
     }

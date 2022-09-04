@@ -81,16 +81,17 @@ export class GameService {
             }
         }
      
-        for (let i = 0; i < scoresClone.length - 1; i++) {
-            scoresClone.shift();
-        }
+        // for (let i = 0; i < scoresClone.length - 1; i++) {
+        //     scoresClone.shift();
+        // }
         this.stepNumber++;
 
         let balance = {
             stepNumber: this.stepNumber,
-            scoresRemain: scoresClone[0],
+            scoresRemain: scoresClone[scoresClone.length - 1],
         }   
-        this.logScores.push(balance)
+        this.logScores.push(balance);
+        console.log(scoresClone)
         return true;
     }
 
