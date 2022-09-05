@@ -8,6 +8,10 @@ export class UsersDataStreamService {
 
     public players: string[][] = [];
 
+    public overscoredPlayers: string[] = [];
+
+    public missed2xZonePlayers: string[] = [];
+
     public winner$ = new Subject<number>;
 
     public is501RulesToggled$ = new Subject<boolean>();

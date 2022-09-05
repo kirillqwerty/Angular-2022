@@ -21,11 +21,13 @@ export class GamePageComponent implements OnInit {
 
     public disable = true;
 
-    public players =
-        [["Sherlock Holmes", "fqwefwqef"],
-        ["Mrs. Stubbs", "refrqfrfqrfqe"],
-        ["Jim Moriarty", "wfrqfqfrqfq"],
-        ["Bom Bomson", "fqwefwqef"]];
+    public errorMessage = "";
+
+    // public players =
+    //     [["Sherlock Holmes", "fqwefwqef"],
+    //     ["Mrs. Stubbs", "refrqfrfqrfqe"],
+    //     ["Jim Moriarty", "wfrqfqfrqfq"],
+    //     ["Bom Bomson", "fqwefwqef"]];
     
     // public players =     
     // [['fqwe', 'fqwefwqef', 0],
@@ -36,7 +38,7 @@ export class GamePageComponent implements OnInit {
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
-    // public players = this.usersDataStreamService.players;  
+    public players = this.usersDataStreamService.players;  
 
     public fb = new FormBuilder;
     
@@ -185,21 +187,58 @@ export class GamePageComponent implements OnInit {
             }          
         }
 
-        // switch (this.gameService.calculate(this.step)) {
-        //     case "win":
-        //         break;
-            // case "retry":
-            //     alert("retry");
-            //     break;
-            // case "overscored":
-            //     alert("overscored");
-            //     break;
-        // }
-
         this.gameService.calculate(this.step);
+
+        this.checkFaults();
+
+        if(this.errorMessage !== "") {
+            alert(this.errorMessage);
+        }
+        
+        console.log(this.errorMessage);
+
+        console.log("missed 2x");
+        console.log(this.usersDataStreamService.missed2xZonePlayers);
+
+        console.log("overscored");
+        console.log(this.usersDataStreamService.overscoredPlayers);
+
         console.log(this.step);
         console.log(this.gameService.logScores);
         this.manageScores.markAsUntouched();
+    }
+
+    public checkFaults(): void {
+
+        this.errorMessage = "";
+
+        if(this.usersDataStreamService.missed2xZonePlayers.length !== 0){
+            if(this.usersDataStreamService.overscoredPlayers.length !== 0){
+                // errorMessage = ("Last throw should be in 2x zone.\nOverscored. Retry");
+                for (let i = 0; i < this.usersDataStreamService.missed2xZonePlayers.length; i++) {
+                    this.errorMessage += (this.usersDataStreamService.missed2xZonePlayers[i] + ", ");
+                }
+                this.errorMessage += ("last throw should be in 2x zone. ")
+                for (let j = 0; j < this.usersDataStreamService.overscoredPlayers.length; j++) {
+                    this.errorMessage += (this.usersDataStreamService.overscoredPlayers[j] + ", ");
+                }
+                this.errorMessage += ("overscored. ");
+            }
+            else {
+                for (let i = 0; i < this.usersDataStreamService.missed2xZonePlayers.length; i++) {
+                    this.errorMessage += (this.usersDataStreamService.missed2xZonePlayers[i] + ", ");
+                }
+                this.errorMessage += ("last throw should be in 2x zone. ")
+            }
+        }
+        if(this.usersDataStreamService.overscoredPlayers.length !== 0 && this.usersDataStreamService.missed2xZonePlayers.length === 0){
+            for (let j = 0; j < this.usersDataStreamService.overscoredPlayers.length; j++) {
+                this.errorMessage += (this.usersDataStreamService.overscoredPlayers[j] + ", ");
+            }
+            this.errorMessage += ("overscored. ");
+        }
+
+
     }
 
     public newGame(): void {
@@ -214,6 +253,5 @@ export class GamePageComponent implements OnInit {
     public checkWinner(): boolean {
         return this.winner !== "";
     }
-
     
 }

@@ -14,7 +14,7 @@ export class GameService {
     public stepNumber = 0;
 
     public is301Toggled = false;
-   
+
     constructor(public usersDataStreamService: UsersDataStreamService){}
 
     public start(players: string[][]): void {
@@ -23,7 +23,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 501;
+        } else goal = 50;
 
         const startingPoints: number[] = [];
 
@@ -50,8 +50,9 @@ export class GameService {
 
         const scores = new Array(...this.logScores);
 
-        let is2xMiss = false;
-        let isOverscored = false;
+        this.usersDataStreamService.overscoredPlayers = [];
+
+        this.usersDataStreamService.missed2xZonePlayers = [];
         
         for (let i = 0; i < scores.length; i++) {
             scoresClone[i] = scores[i].scoresRemain.slice();      
@@ -79,8 +80,8 @@ export class GameService {
                     (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number) +  
                     (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
                     (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);                   
-                    // alert(`Player №${i+1}, last throw should be in 2x zone. Retry`);
-                    is2xMiss = true;
+                    // Индексы игроков, которые набрали 0 но не попали в 2х зону
+                    this.usersDataStreamService.missed2xZonePlayers.push(this.usersDataStreamService.players[i][0]);
                 }
 
             } else if(scoresClone[this.stepNumber][i] < 0 || scoresClone[this.stepNumber][i] === 1) {
@@ -88,21 +89,11 @@ export class GameService {
                     (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number) +  
                     (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
                     (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);
-                    // alert(`Player №${i+1}, overscored. Retry`);
-                    isOverscored = true;    
+                    // Индексы игроков, у которых перебор  
+                    this.usersDataStreamService.overscoredPlayers.push(this.usersDataStreamService.players[i][0]);
                 }
         }
         
-        if(is2xMiss){
-            if(isOverscored){
-                alert("Last throw should be in 2x zone.\nOverscored. Retry");
-            }
-            else alert("Last throw should be in 2x zone. Retry")
-        }
-        if(isOverscored && !is2xMiss){
-            alert("Overscored. Retry");
-        }
-
         console.log(scoresClone);
 
         this.stepNumber++;
