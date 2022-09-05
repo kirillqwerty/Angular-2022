@@ -47,17 +47,17 @@ export class GamePageComponent implements OnInit {
                     name: item[0],
                     throws: this.fb.array([
                         this.fb.group({
-                            scores: ["", [Validators.required, dartsValidator]],
+                            scores: [<number | null> null, [Validators.required, dartsValidator]],
                             multiplier: 1
                         }),
 
                         this.fb.group({
-                            scores: ["", [Validators.required, dartsValidator]],
+                            scores: [<number | null> null, [Validators.required, dartsValidator]],
                             multiplier: 1
                         }),
 
                         this.fb.group({
-                            scores: ["", [Validators.required, dartsValidator]],
+                            scores: [ <number | null> null, [Validators.required, dartsValidator]],
                             multiplier: 1
                         })
                     ])
@@ -76,7 +76,7 @@ export class GamePageComponent implements OnInit {
     public get Inputs(): FormGroup<{
                                 name: FormControl<string | null>;
                                 throws: FormArray<FormGroup<{
-                                    scores: FormControl<string | null>;
+                                    scores: FormControl<number | null>;
                                         multiplier: FormControl<number | null>;
                                 }>>;
                             }>[]
@@ -130,8 +130,8 @@ export class GamePageComponent implements OnInit {
     }
 
     public checkBullsEye(dart: number, playerNumber: number): boolean{
-        if(parseInt(this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value as string) === 50 || 
-        parseInt(this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value as string) === 25){
+        if(this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value === 50 || 
+        this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value === 25){
             return true;
         }
         else return false;
@@ -144,21 +144,21 @@ export class GamePageComponent implements OnInit {
         let multiplierThree;
         for (let i = 0; i < this.players.length; i++) {
 
-            if (parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string) === 25 ||
-                parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string) === 50) {
+            if (this.Inputs[i].controls["throws"].controls[0].controls["scores"].value === 25 ||
+                this.Inputs[i].controls["throws"].controls[0].controls["scores"].value === 50) {
                     multiplierOne = 1;
                 } else {
                     multiplierOne = this.Inputs[i].controls["throws"].controls[0].controls["multiplier"].value;
                 }
 
-            if (parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string) === 25 ||
-                parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string) === 50) {
+            if (this.Inputs[i].controls["throws"].controls[1].controls["scores"].value === 25 ||
+                this.Inputs[i].controls["throws"].controls[1].controls["scores"].value === 50) {
                     multiplierTwo = 1;
                 } else {
                     multiplierTwo = this.Inputs[i].controls["throws"].controls[1].controls["multiplier"].value;
                 } 
-            if (parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string) === 25 ||
-                parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string) === 50) {
+            if (this.Inputs[i].controls["throws"].controls[2].controls["scores"].value === 25 ||
+                this.Inputs[i].controls["throws"].controls[2].controls["scores"].value === 50) {
                     multiplierThree = 1;
                 } else {
                     multiplierThree = this.Inputs[i].controls["throws"].controls[2].controls["multiplier"].value;
@@ -166,9 +166,9 @@ export class GamePageComponent implements OnInit {
 
                 const step: PlayerStep = {
                     playerNumber: i,
-                    scoreFirstTry: parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string),
-                    scoreSecondTry: parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string),               
-                    scoreThirdTry: parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string),
+                    scoreFirstTry: this.Inputs[i].controls["throws"].controls[0].controls["scores"].value,
+                    scoreSecondTry: this.Inputs[i].controls["throws"].controls[1].controls["scores"].value,               
+                    scoreThirdTry: this.Inputs[i].controls["throws"].controls[2].controls["scores"].value,
                     multiplierFirstTry: multiplierOne,
                     multiplierSecondTry: multiplierTwo,
                     multiplierThirdTry: multiplierThree,
@@ -181,7 +181,7 @@ export class GamePageComponent implements OnInit {
 
         for (let i = 0; i < this.players.length; i++) {
             for (let j = 0; j < 3; j++) {
-                this.Inputs[i].controls["throws"].controls[j].patchValue({scores: ""});
+                this.Inputs[i].controls["throws"].controls[j].patchValue({scores: null});
             }          
         }
 

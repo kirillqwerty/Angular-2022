@@ -23,7 +23,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 50;
+        } else goal = 501;
 
         const startingPoints: number[] = [];
 
