@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  // templateUrl: './app.component.html',
-  template: `<router-outlet></router-outlet>`,
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    // templateUrl: './app.component.html',
+    template: `<router-outlet></router-outlet>`,
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
-  ngOnInit(): void {
-    sessionStorage.clear();
-  }
-
-  title = 'dartsCounter';
+    public title = 'dartsCounter';
 }

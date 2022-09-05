@@ -8,17 +8,16 @@ import { UsersDataStreamService } from "./users-data-stream-service";
 })
 
 export class GameService {
-   
-    constructor(public usersDataStreamService: UsersDataStreamService){}
 
     public logScores: PlayerBalance[] = [];
 
     private stepNumber: number = 0;
 
     public is301Toggled: boolean = false;
+   
+    constructor(public usersDataStreamService: UsersDataStreamService){}
 
-
-    start(players: any[][]){
+    start(players: any[][]): void {
         // console.log(this.currentRules);
         console.log('start triggered');
         let goal;
@@ -45,7 +44,7 @@ export class GameService {
         console.log(this.logScores);
     }
 
-    calculate(step: PlayerStep[]){
+    calculate(step: PlayerStep[]): string {
 
         let scoresClone = [];
 
@@ -77,24 +76,24 @@ export class GameService {
                 }
 
             } else if(scoresClone[this.stepNumber][i] < 0) {
-                return "overscored"
+                return 'overscored'
             }
         }
      
-        for (let i = 0; i < scoresClone.length - 1; i++) {
-            scoresClone.shift();
-        }
+        // for (let i = 0; i < scoresClone.length - 1; i++) {
+        //     scoresClone.shift();
+        // }
         this.stepNumber++;
 
         let balance = {
             stepNumber: this.stepNumber,
-            scoresRemain: scoresClone[0],
+            scoresRemain: scoresClone[scoresClone.length - 1],
         }   
         this.logScores.push(balance)
-        return true;
+        return 'next step';
     }
 
-    winAlert(winnerNumber: number){
+    winAlert(winnerNumber: number): void {
         this.usersDataStreamService.setWinner(winnerNumber);
     }
 }

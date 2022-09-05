@@ -10,12 +10,12 @@ import { UsersDataStreamService } from '../users-data-stream-service';
 })
 export class WinMessageComponent{
 
+    @Input() winner: string = ''; 
+
     constructor(private usersDataStreamService: UsersDataStreamService,
         private gameService: GameService) { }
 
-    @Input() winner: string = ''; 
-
-    refresh(){
+    refresh(): void {
         this.usersDataStreamService.players = [];
         this.gameService.logScores = [];
     }

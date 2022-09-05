@@ -30,14 +30,10 @@
                             <div *ngFor="let throw of group.controls['throws'].controls; let j = index;">
                                 <ng-container [formGroup]="throw">                              
                                     <div>
-                                        <input type="number" class="score-input" formControlName="scores" 
-                                        [class.score-input-error]="(throw.controls.scores.errors?.['required'] || 
-                                                                    throw.controls.scores.invalid) && 
-                                                                    (throw.controls.scores.touched || 
-                                                                    throw.controls.scores.dirty)"/>
-                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,1,i)" [class.multiply-btn-selected]="checkSelected(j,1,i)">1x</button>
-                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,2,i)" [class.multiply-btn-selected]="checkSelected(j,2,i)">2x</button>
-                                        <button class="multiply-btn-radius" name="multiplier" (click)="setMultiply(j,3,i)" [class.multiply-btn-selected]="checkSelected(j,3,i)">3x</button>
+                                        <input type="number" class="score-input" formControlName="scores" [class.score-input-error]="throw.controls.scores.invalid && throw.controls.scores.touched"/>
+                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,1,i)" [class.multiply-btn-selected]="checkSelected(j,1,i)" [disabled]="checkBullsEye(j,i)">1x</button>
+                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,2,i)" [class.multiply-btn-selected]="checkSelected(j,2,i)" [disabled]="checkBullsEye(j,i)">2x</button>
+                                        <button class="multiply-btn-radius" name="multiplier" (click)="setMultiply(j,3,i)" [class.multiply-btn-selected]="checkSelected(j,3,i)" [disabled]="checkBullsEye(j,i)">3x</button>
                                     </div>
                                 </ng-container>
                             </div>

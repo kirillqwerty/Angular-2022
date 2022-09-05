@@ -10,37 +10,33 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class GameSettingsComponent {
 
+    public is301Toggled: boolean = false;
+
+    public is501Toggled: boolean = false;   
+
+    public isSelected: boolean = false;
+
+    public searchResult: string[][] = [];
+
     constructor(public readonly usersDataStreamService: UsersDataStreamService, private readonly gameService: GameService) { 
-        this._createForm();
         this.searchResult = this.usersDataStreamService.players;
         this.searchForm.valueChanges.subscribe((searchWord:any) => this.search(searchWord.player));
     }
 
-    searchForm!: FormGroup;
+    searchForm= new FormGroup({
+        player: new FormControl(''),
+    })
 
-    private _createForm (){
-        this.searchForm = new FormGroup({
-            player: new FormControl(''),
-        })
-    }
-
-    public is301Toggled: boolean = false;
-    public is501Toggled: boolean = false;   
-    public isSelected: boolean = false;
-    public searchResult: string[][] = [];
-
-
-    getPlayers() {
+    getPlayers(): number {
         return this.usersDataStreamService.players.length;
     }
 
 
-    deletePlayer(index: number){ 
+    deletePlayer(index: number): void { 
         this.usersDataStreamService.players.splice(index, 1); 
     }
 
-    toggle301(){
-
+    toggle301(): void {
         this.is301Toggled = true;
         this.is501Toggled = false;
         this.isSelected = true; 
@@ -48,7 +44,7 @@ export class GameSettingsComponent {
         this.gameService.is301Toggled = true;
     }
 
-    toggle501(){
+    toggle501(): void {
 
         this.is301Toggled = false;
         this.is501Toggled = true;
@@ -57,11 +53,11 @@ export class GameSettingsComponent {
         this.gameService.is301Toggled = false;
     }
 
-    setPlayers() : void{
+    setPlayers(): void{
     // this.usersDataStreamService.setPlayersList(this.players);
     }
 
-    search(searchWord: string) {  
+    search(searchWord: string): void {  
         this.searchResult = [];
         if(searchWord !== '') {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Player } from '../facades/player';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { UsersDataStreamService } from '../users-data-stream-service';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
@@ -10,29 +10,37 @@ import { Router } from '@angular/router';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent{
-
-    constructor(private usersDataStreamService: UsersDataStreamService,
-        private router: Router) { }
+export class AddUserComponent implements OnInit{
 
     public disableButton: boolean = true;
 
     public wrongInput: boolean = false;
 
-    playerForm: any = {
-      nickName: '',
-      eMail: '',
+    public addUserForm = this.fb.group({
+        nick: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
+        email:['']
+    })
+
+    constructor(private usersDataStreamService: UsersDataStreamService, 
+    private router: Router,
+    private fb: FormBuilder) {
     }
 
-    regUser!: FormGroup;
+    ngOnInit(): void {
+        this.addUserForm.valueChanges.subscribe(console.log);
+    }
 
-    addUser(){
+    
+    addUser(): void {
         if(this.checkCorrectEmail()) {
-            if (this.checkUniqueUser()) {
-                this.usersDataStreamService.addPlayer([this.playerForm.nickName, this.playerForm.eMail]);
-                this.router.navigate(['/choice']);
+            if (this.checkUniqueUserNick()) {
+                if(this.checkUniqueUserEmail()){
+                    this.usersDataStreamService.addPlayer([this.addUserForm.controls.nick.value as string, this.addUserForm.controls.email.value as string]);
+                    this.router.navigate(['/choice']);
+                }
+                else alert("User with this email already exist")            
             }
-            else alert("user already exist");
+            else alert("User with this nickname already exist");
             
         }   
         else {
@@ -41,11 +49,10 @@ export class AddUserComponent{
         } 
     }
 
-    checkUniqueUser(){
+    checkUniqueUserNick(): boolean {
         if (this.usersDataStreamService.players.length !== 0) {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
-                if(this.usersDataStreamService.players[i][0] === this.playerForm.nickName ||
-                     this.usersDataStreamService.players[i][1] === this.playerForm.email){
+                if(this.usersDataStreamService.players[i][0] === this.addUserForm.controls.nick.value){
                     return false;
                 } 
             }
@@ -53,18 +60,29 @@ export class AddUserComponent{
         return true;
     }
 
-    checkCorrectEmail(){
-        if(/.+@.+\..+/i.test(this.playerForm.eMail) === true || this.playerForm.eMail === ''){
+    checkUniqueUserEmail(): boolean {
+        if (this.usersDataStreamService.players.length !== 0) {
+            for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
+                if(this.usersDataStreamService.players[i][1] === this.addUserForm.controls.email.value || this.addUserForm.controls.email.value !== '' ){
+                    return false;
+                } 
+            }
+        }           
+        return true;
+    }
+
+    checkCorrectEmail(): boolean {
+        if(/.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === ''){
             return true;
         }
         else return false;
     }
 
-    checkEmptyInputs(){
-        if (this.playerForm.nickName === "") {
-            return true;
-        }
-        return false;
-    }
+    // checkEmptyInputs(){
+    //     if (this.addUserForm.contro === "") {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
 }

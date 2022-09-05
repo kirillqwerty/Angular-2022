@@ -3,7 +3,8 @@ import { UsersDataStreamService } from '../users-data-stream-service';
 import { GameService } from '../game-service';
 import { PlayerStep } from '../facades/playerStep';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IFormGroup, IFormBuilder, IFormArray } from '@rxweb/types';
+import { PlayerBalance } from '../facades/playersBalance';
+import { dartsValidator } from '../score-input.validator';
 
 @Component({
     selector: 'app-game-page',
@@ -13,14 +14,82 @@ import { IFormGroup, IFormBuilder, IFormArray } from '@rxweb/types';
 export class GamePageComponent implements OnInit {
 
     public multipliers: number[][] = [];
+
     public step: PlayerStep[] = [];
+
     public winner: string = '';
+
     public disable: boolean = true;
+
+    // public players =
+    //     [['Sherlock Holmes', 'fqwefwqef', 0],
+    //     ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
+    //     ['Jim Moriarty', 'wfrqfqfrqfq', 2],
+    //     ['Bom Bomson', 'fqwefwqef', 3]];
+    
+    // public players =     
+    // [['fqwe', 'fqwefwqef', 0],
+    // ['fqwe', 'refrqfrfqrfqe', 1],
+    // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
+
+    // public players = 
+    // [['fcdsfqwe', 'fqwefwqef', 0],
+    // ['qwefrff', 'refrqfrfqrfqe', 1]];
+
+    public players = this.usersDataStreamService.players;  
+
     fb = new FormBuilder;
+    
+    public manageScores = new FormGroup({
+        inputs: new FormArray(
+            this.players.map((item) =>
+                this.fb.group({
+                    name: item[0],
+                    throws: this.fb.array([
+                        this.fb.group({
+                            scores: ['', [Validators.required, dartsValidator]],
+                            multiplier: 1
+                        }),
+
+                        this.fb.group({
+                            scores: ['', [Validators.required, dartsValidator]],
+                            multiplier: 1
+                        }),
+
+                        this.fb.group({
+                            scores: ['', [Validators.required, dartsValidator]],
+                            multiplier: 1
+                        })
+                    ])
+                })
+            )
+        )
+    })    
+
+    
 
     constructor(private readonly usersDataStreamService: UsersDataStreamService,
         private readonly gameService: GameService) {
         // this.test();
+    }
+
+    get Inputs() : FormGroup<{
+                                name: FormControl<string | null>;
+                                throws: FormArray<FormGroup<{
+                                    scores: FormControl<string | null>;
+                                        multiplier: FormControl<number | null>;
+                                }>>;
+                            }>[]
+        {
+        return this.manageScores.controls.inputs.controls;
+    }
+
+    get Scores() : PlayerBalance[] {
+        return this.gameService.logScores.reverse();
+    }
+
+    get Steps() : string[] {
+        return Object.keys(this.gameService.logScores).reverse();
     }
 
     ngOnInit(): void {
@@ -31,22 +100,14 @@ export class GamePageComponent implements OnInit {
         console.log(this.Inputs);
         // this.test();
         this.manageScores.valueChanges.subscribe(console.log);
+        console.log(this.players);
+        console.log('players from service');
+        console.log(this.usersDataStreamService.players);
     }
-
-
     
 
-    public players =
-        [['Sherlock Holmes', 'fqwefwqef', 0],
-        ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-        ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-        ['Bom Bomson', 'fqwefwqef', 3]];
-
-    get Inputs() {
-        return this.manageScores.controls.inputs.controls;
-    }
-
-    isValidationErrors(): boolean{
+    
+    isValidationErrors(): boolean {
         for (let i = 0; i < this.players.length; i++) {
             for (let j = 0; j < 3; j++) {
                 if (this.Inputs[i].controls['throws'].controls[j].controls.scores.errors) {
@@ -57,61 +118,26 @@ export class GamePageComponent implements OnInit {
         return false;
     }  
 
-    manageScores = new FormGroup({
-        inputs: new FormArray(
-            this.players.map((item) =>
-                this.fb.group({
-                    name: item[0],
-                    throws: this.fb.array([
-                        this.fb.group({
-                            scores: ['', [Validators.required,
-                                        Validators.max(20),
-                                        Validators.min(0)]],
-                            multiplier: 1
-                        }),
-
-                        this.fb.group({
-                            scores: ['', [Validators.required,
-                                    Validators.max(20),
-                                    Validators.min(0)]],
-                            multiplier: 1
-                        }),
-
-                        this.fb.group({
-                            scores: ['', [Validators.required,
-                                    Validators.max(20),
-                                    Validators.min(0)]],
-                            multiplier: 1
-                        })
-                    ])
-                })
-            )
-        )
-    })
-
-    // public players = 
-    // [['fqwe', 'fqwefwqef', 0],
-    // ['fqwe', 'refrqfrfqrfqe', 1],
-    // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
-
-    // public players = 
-    // [['fcdsfqwe', 'fqwefwqef', 0],
-    // ['qwefrff', 'refrqfrfqrfqe', 1]];
-
-    // public players = this.usersDataStreamService.players;  
-
-    setMultiply(dart: number, multiply: number, playerNumber: number) {
+    setMultiply(dart: number, multiply: number, playerNumber: number): void {
         this.Inputs[playerNumber].controls['throws'].controls[dart].patchValue({multiplier: multiply});
     }
 
-    checkSelected(dart: number, multiply: number, playerNumber: number){
+    checkSelected(dart: number, multiply: number, playerNumber: number): boolean {
         if (this.Inputs[playerNumber].controls['throws'].controls[dart].controls['multiplier'].value === multiply) {
             return true;   
         }    
         else return false
     }
 
-    setPlayers() {
+    checkBullsEye(dart: number, playerNumber: number): boolean{
+        if(parseInt(this.Inputs[playerNumber].controls['throws'].controls[dart].controls.scores.value as string) === 50 || 
+        parseInt(this.Inputs[playerNumber].controls['throws'].controls[dart].controls.scores.value as string) === 25){
+            return true;
+        }
+        else return false;
+    }
+
+    setPlayers(): void {
         this.step = [];
         let errors = 0;
         for (let i = 0; i < this.players.length; i++) {
@@ -157,26 +183,21 @@ export class GamePageComponent implements OnInit {
         }
         console.log(this.step);
         console.log(this.gameService.logScores);
+        this.manageScores.markAsUntouched();
     }
 
-    newGame() {
+    newGame(): void {
         this.usersDataStreamService.players = [];
         this.gameService.logScores = [];
     }
 
-    get Scores() {
-        return this.gameService.logScores.reverse();
-    }
-
-    get Steps() {
-        return Object.keys(this.gameService.logScores).reverse();
-    }
-
-    winAlert(playerNumber: number) {
+    winAlert(playerNumber: number): void {
         this.winner = JSON.stringify(this.players[playerNumber][0]);
     }
 
-    checkWinner() {
+    checkWinner(): boolean {
         return this.winner !== '';
     }
+
+    
 }
