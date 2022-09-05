@@ -23,7 +23,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 501;
+        } else goal = 50;
 
         const startingPoints: number[] = [];
 
@@ -50,6 +50,9 @@ export class GameService {
 
         const scores = new Array(...this.logScores);
 
+        let is2xMiss = false;
+        let isOverscored = false;
+        
         for (let i = 0; i < scores.length; i++) {
             scoresClone[i] = scores[i].scoresRemain.slice();      
         }
@@ -70,26 +73,45 @@ export class GameService {
                     step[i].scoreThirdTry === 50 ||
                     step[i].scoreThirdTry === 25) {                 
                         this.winAlert(i);
-                        return "win";
+                        return "Win";
                 } else {
-                    return "retry";
+                    scoresClone[this.stepNumber][i] = scoresClone[this.stepNumber][i] +
+                    (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number) +  
+                    (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
+                    (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);                   
+                    // alert(`Player №${i+1}, last throw should be in 2x zone. Retry`);
+                    is2xMiss = true;
                 }
 
-            } else if(scoresClone[this.stepNumber][i] < 0) {
-                return "overscored"
-            }
+            } else if(scoresClone[this.stepNumber][i] < 0 || scoresClone[this.stepNumber][i] === 1) {
+                    scoresClone[this.stepNumber][i] = scoresClone[this.stepNumber][i] +
+                    (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number) +  
+                    (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
+                    (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);
+                    // alert(`Player №${i+1}, overscored. Retry`);
+                    isOverscored = true;    
+                }
         }
-     
-        // // for (let i = 0; i < scoresClone.length - 1; i++) {
-        // //     scoresClone.shift();
-        // // }
+        
+        if(is2xMiss){
+            if(isOverscored){
+                alert("Last throw should be in 2x zone.\nOverscored. Retry");
+            }
+            else alert("Last throw should be in 2x zone. Retry")
+        }
+        if(isOverscored && !is2xMiss){
+            alert("Overscored. Retry");
+        }
+
+        console.log(scoresClone);
+
         this.stepNumber++;
 
         const balance = {
             stepNumber: this.stepNumber,
             scoresRemain: scoresClone[scoresClone.length - 1],
         }   
-        this.logScores.push(balance)
+        this.logScores.push(balance);
         return "next step";
     }
 

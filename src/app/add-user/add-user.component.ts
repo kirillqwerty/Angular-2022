@@ -58,7 +58,7 @@ export class AddUserComponent implements OnInit{
     public checkUniqueUserEmail(): boolean {
         if (this.usersDataStreamService.players.length !== 0) {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
-                if(this.usersDataStreamService.players[i][1] === this.addUserForm.controls.email.value || this.addUserForm.controls.email.value !== "" ){
+                if(this.usersDataStreamService.players[i][1] === this.addUserForm.controls.email.value && this.addUserForm.controls.email.value !== "" ){
                     return false;
                 } 
             }

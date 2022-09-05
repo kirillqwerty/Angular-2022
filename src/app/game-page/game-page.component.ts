@@ -21,11 +21,11 @@ export class GamePageComponent implements OnInit {
 
     public disable = true;
 
-    // public players =
-    //     [['Sherlock Holmes', 'fqwefwqef', 0],
-    //     ['Mrs. Stubbs', 'refrqfrfqrfqe', 1],
-    //     ['Jim Moriarty', 'wfrqfqfrqfq', 2],
-    //     ['Bom Bomson', 'fqwefwqef', 3]];
+    public players =
+        [["Sherlock Holmes", "fqwefwqef"],
+        ["Mrs. Stubbs", "refrqfrfqrfqe"],
+        ["Jim Moriarty", "wfrqfqfrqfq"],
+        ["Bom Bomson", "fqwefwqef"]];
     
     // public players =     
     // [['fqwe', 'fqwefwqef', 0],
@@ -36,7 +36,7 @@ export class GamePageComponent implements OnInit {
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
-    public players = this.usersDataStreamService.players;  
+    // public players = this.usersDataStreamService.players;  
 
     public fb = new FormBuilder;
     
@@ -139,16 +139,39 @@ export class GamePageComponent implements OnInit {
 
     public setPlayers(): void {
         this.step = [];
-        const errors = 0;
+        let multiplierOne;
+        let multiplierTwo;
+        let multiplierThree;
         for (let i = 0; i < this.players.length; i++) {
+
+            if (parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string) === 25 ||
+                parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string) === 50) {
+                    multiplierOne = 1;
+                } else {
+                    multiplierOne = this.Inputs[i].controls["throws"].controls[0].controls["multiplier"].value;
+                }
+
+            if (parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string) === 25 ||
+                parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string) === 50) {
+                    multiplierTwo = 1;
+                } else {
+                    multiplierTwo = this.Inputs[i].controls["throws"].controls[1].controls["multiplier"].value;
+                } 
+            if (parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string) === 25 ||
+                parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string) === 50) {
+                    multiplierThree = 1;
+                } else {
+                    multiplierThree = this.Inputs[i].controls["throws"].controls[2].controls["multiplier"].value;
+                }
+
                 const step: PlayerStep = {
                     playerNumber: i,
                     scoreFirstTry: parseInt(this.Inputs[i].controls["throws"].controls[0].controls["scores"].value as string),
                     scoreSecondTry: parseInt(this.Inputs[i].controls["throws"].controls[1].controls["scores"].value as string),               
                     scoreThirdTry: parseInt(this.Inputs[i].controls["throws"].controls[2].controls["scores"].value as string),
-                    multiplierFirstTry: this.Inputs[i].controls["throws"].controls[0].controls["multiplier"].value,
-                    multiplierSecondTry: this.Inputs[i].controls["throws"].controls[1].controls["multiplier"].value,
-                    multiplierThirdTry: this.Inputs[i].controls["throws"].controls[2].controls["multiplier"].value,
+                    multiplierFirstTry: multiplierOne,
+                    multiplierSecondTry: multiplierTwo,
+                    multiplierThirdTry: multiplierThree,
                 } 
             this.step.push(step);
             for (let j = 0; j < 3; j++) {
@@ -162,25 +185,18 @@ export class GamePageComponent implements OnInit {
             }          
         }
 
-        if (errors === 0) {
-            switch (this.gameService.calculate(this.step)) {
-                case "win":
-                    break;
-                case "retry":
-                    alert("retry");
-                    break;
-                case "overscored":
-                    alert("overscored");
-                    break;
-            }
+        // switch (this.gameService.calculate(this.step)) {
+        //     case "win":
+        //         break;
+            // case "retry":
+            //     alert("retry");
+            //     break;
+            // case "overscored":
+            //     alert("overscored");
+            //     break;
+        // }
 
-        }
-        else {
-            alert("Incorrect input");
-            for (let i = 0; i < this.players.length; i++) {
-                this.step.pop();
-            }
-        }
+        this.gameService.calculate(this.step);
         console.log(this.step);
         console.log(this.gameService.logScores);
         this.manageScores.markAsUntouched();
