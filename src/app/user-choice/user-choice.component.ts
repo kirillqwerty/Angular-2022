@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersDataStreamService } from '../users-data-stream-service';
+import { Component, OnInit } from "@angular/core";
+import { UsersDataStreamService } from "../users-data-stream-service";
 @Component({
-    selector: 'app-user-choice',
-    templateUrl: './user-choice.component.html',
-    styleUrls: ['./user-choice.component.css']
+    selector: "app-user-choice",
+    templateUrl: "./user-choice.component.html",
+    styleUrls: ["./user-choice.component.css"]
 })
 export class UserChoiceComponent implements OnInit{
 
@@ -11,11 +11,11 @@ export class UserChoiceComponent implements OnInit{
 
     constructor(public usersDataStreamService: UsersDataStreamService) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.numberOfPlayers = [1];
     }
 
-    setUsers(players: string[][]) : void{
+    public setUsers(players: string[][]): void{
         console.log(players);
     }
 

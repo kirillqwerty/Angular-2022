@@ -4,28 +4,28 @@ import { PlayerBalance } from "./facades/playersBalance";
 import { UsersDataStreamService } from "./users-data-stream-service";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 
 export class GameService {
 
     public logScores: PlayerBalance[] = [];
 
-    private stepNumber: number = 0;
+    public stepNumber = 0;
 
-    public is301Toggled: boolean = false;
+    public is301Toggled = false;
    
     constructor(public usersDataStreamService: UsersDataStreamService){}
 
-    start(players: any[][]): void {
+    public start(players: string[][]): void {
         // console.log(this.currentRules);
-        console.log('start triggered');
+        console.log("start triggered");
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
         } else goal = 501;
 
-        let startingPoints : number[] = [];
+        const startingPoints: number[] = [];
 
         for (let i = 0; i < players.length; i++) {
             startingPoints.push(goal);
@@ -33,7 +33,7 @@ export class GameService {
         
         console.log(startingPoints);
 
-        let balance = {
+        const balance = {
             stepNumber: this.stepNumber,
             scoresRemain: startingPoints,          
         }
@@ -44,11 +44,11 @@ export class GameService {
         console.log(this.logScores);
     }
 
-    calculate(step: PlayerStep[]): string {
+    public calculate(step: PlayerStep[]): string {
 
-        let scoresClone = [];
+        const scoresClone = [];
 
-        let scores = new Array(...this.logScores);
+        const scores = new Array(...this.logScores);
 
         for (let i = 0; i < scores.length; i++) {
             scoresClone[i] = scores[i].scoresRemain.slice();      
@@ -68,33 +68,34 @@ export class GameService {
                     step[i].scoreSecondTry === 50 ||
                     step[i].scoreSecondTry === 25 ||
                     step[i].scoreThirdTry === 50 ||
-                    step[i].scoreThirdTry === 25)  {                 
+                    step[i].scoreThirdTry === 25) {                 
                         this.winAlert(i);
-                        return 'win';
+                        return "win";
                 } else {
-                    return 'retry'
+                    return "retry";
                 }
 
             } else if(scoresClone[this.stepNumber][i] < 0) {
-                return 'overscored'
+                return "overscored"
             }
         }
      
-        // for (let i = 0; i < scoresClone.length - 1; i++) {
-        //     scoresClone.shift();
-        // }
+        // // for (let i = 0; i < scoresClone.length - 1; i++) {
+        // //     scoresClone.shift();
+        // // }
         this.stepNumber++;
 
-        let balance = {
+        const balance = {
             stepNumber: this.stepNumber,
             scoresRemain: scoresClone[scoresClone.length - 1],
         }   
         this.logScores.push(balance)
-        return 'next step';
+        return "next step";
     }
 
-    winAlert(winnerNumber: number): void {
+    public winAlert(winnerNumber: number): void {
         this.usersDataStreamService.setWinner(winnerNumber);
     }
 }
+
 

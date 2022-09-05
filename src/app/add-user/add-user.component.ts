@@ -1,42 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Player } from '../facades/player';
-import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { UsersDataStreamService } from '../users-data-stream-service';
-import { RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { UsersDataStreamService } from "../users-data-stream-service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: "app-add-user",
+  templateUrl: "./add-user.component.html",
+  styleUrls: ["./add-user.component.css"]
 })
 export class AddUserComponent implements OnInit{
 
-    public disableButton: boolean = true;
+    public disableButton = true;
 
-    public wrongInput: boolean = false;
+    public wrongInput = false;
 
     public addUserForm = this.fb.group({
-        nick: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
-        email:['']
+        nick: ["", [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
+        email: [""]
     })
 
     constructor(private usersDataStreamService: UsersDataStreamService, 
     private router: Router,
     private fb: FormBuilder) {
     }
-
-    ngOnInit(): void {
-        this.addUserForm.valueChanges.subscribe(console.log);
-    }
-
-    
-    addUser(): void {
+  
+    public addUser(): void {
         if(this.checkCorrectEmail()) {
             if (this.checkUniqueUserNick()) {
                 if(this.checkUniqueUserEmail()){
                     this.usersDataStreamService.addPlayer([this.addUserForm.controls.nick.value as string, this.addUserForm.controls.email.value as string]);
-                    this.router.navigate(['/choice']);
+                    this.router.navigate(["/choice"]);
                 }
                 else alert("User with this email already exist")            
             }
@@ -45,11 +38,13 @@ export class AddUserComponent implements OnInit{
         }   
         else {
             alert("incorrect inputs");
-            this.router.navigate(['']);
+            this.router.navigate([""]);
         } 
     }
 
-    checkUniqueUserNick(): boolean {
+    
+
+    public checkUniqueUserNick(): boolean {
         if (this.usersDataStreamService.players.length !== 0) {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
                 if(this.usersDataStreamService.players[i][0] === this.addUserForm.controls.nick.value){
@@ -60,10 +55,10 @@ export class AddUserComponent implements OnInit{
         return true;
     }
 
-    checkUniqueUserEmail(): boolean {
+    public checkUniqueUserEmail(): boolean {
         if (this.usersDataStreamService.players.length !== 0) {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
-                if(this.usersDataStreamService.players[i][1] === this.addUserForm.controls.email.value || this.addUserForm.controls.email.value !== '' ){
+                if(this.usersDataStreamService.players[i][1] === this.addUserForm.controls.email.value || this.addUserForm.controls.email.value !== "" ){
                     return false;
                 } 
             }
@@ -71,18 +66,15 @@ export class AddUserComponent implements OnInit{
         return true;
     }
 
-    checkCorrectEmail(): boolean {
-        if(/.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === ''){
+    public checkCorrectEmail(): boolean {
+        if(/.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === ""){
             return true;
         }
         else return false;
     }
 
-    // checkEmptyInputs(){
-    //     if (this.addUserForm.contro === "") {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    public ngOnInit(): void {
+        this.addUserForm.valueChanges.subscribe(console.log);
+    }
 
 }

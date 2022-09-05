@@ -1,42 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersDataStreamService } from '../users-data-stream-service';
-import { GameService } from '../game-service';
-import { HtmlParser } from '@angular/compiler';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component } from "@angular/core";
+import { UsersDataStreamService } from "../users-data-stream-service";
+import { GameService } from "../game-service";
+import { FormControl, FormGroup } from "@angular/forms";
 @Component({
-  selector: 'app-game-settings',
-  templateUrl: './game-settings.component.html',
-  styleUrls: ['./game-settings.component.css']
+  selector: "app-game-settings",
+  templateUrl: "./game-settings.component.html",
+  styleUrls: ["./game-settings.component.css"]
 })
 export class GameSettingsComponent {
 
-    public is301Toggled: boolean = false;
+    public is301Toggled = false;
 
-    public is501Toggled: boolean = false;   
+    public is501Toggled = false;   
 
-    public isSelected: boolean = false;
+    public isSelected = false;
 
     public searchResult: string[][] = [];
 
-    constructor(public readonly usersDataStreamService: UsersDataStreamService, private readonly gameService: GameService) { 
-        this.searchResult = this.usersDataStreamService.players;
-        this.searchForm.valueChanges.subscribe((searchWord:any) => this.search(searchWord.player));
-    }
-
-    searchForm= new FormGroup({
-        player: new FormControl(''),
+    public searchForm = new FormGroup({
+        player: new FormControl(""),
     })
 
-    getPlayers(): number {
+    constructor(public readonly usersDataStreamService: UsersDataStreamService, private readonly gameService: GameService) { 
+        this.searchResult = this.usersDataStreamService.players;
+        this.searchForm.valueChanges.subscribe((searchWord: any) => this.search(searchWord.player));
+    }
+
+    
+
+    public getPlayers(): number {
         return this.usersDataStreamService.players.length;
     }
 
 
-    deletePlayer(index: number): void { 
+    public deletePlayer(index: number): void { 
         this.usersDataStreamService.players.splice(index, 1); 
     }
 
-    toggle301(): void {
+    public toggle301(): void {
         this.is301Toggled = true;
         this.is501Toggled = false;
         this.isSelected = true; 
@@ -44,7 +45,7 @@ export class GameSettingsComponent {
         this.gameService.is301Toggled = true;
     }
 
-    toggle501(): void {
+    public toggle501(): void {
 
         this.is301Toggled = false;
         this.is501Toggled = true;
@@ -53,13 +54,13 @@ export class GameSettingsComponent {
         this.gameService.is301Toggled = false;
     }
 
-    setPlayers(): void{
+    public setPlayers(): void{
     // this.usersDataStreamService.setPlayersList(this.players);
     }
 
-    search(searchWord: string): void {  
+    public search(searchWord: string): void {  
         this.searchResult = [];
-        if(searchWord !== '') {
+        if(searchWord !== "") {
             for (let i = 0; i < this.usersDataStreamService.players.length; i++) {
                 if (this.usersDataStreamService.players[i][0].toLowerCase().indexOf(searchWord.toLowerCase()) !== -1 ||
                     this.usersDataStreamService.players[i][1].toLowerCase().indexOf(searchWord.toLowerCase()) !== -1) {
@@ -68,7 +69,7 @@ export class GameSettingsComponent {
             }
         } 
         
-        if (this.searchResult.length === 0 && searchWord === '')  {
+        if (this.searchResult.length === 0 && searchWord === "") {
             this.searchResult = this.usersDataStreamService.players;
         }
     }   
