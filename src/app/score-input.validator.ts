@@ -5,5 +5,5 @@ export function dartsValidator(control: AbstractControl): { [key: string]: boole
         return null
     }
 
-    else return {"scores": true};
+    else return {"valueError": true};
 }
