@@ -91,26 +91,7 @@ export class GamePageComponent implements OnInit {
         // console.log("players from service");
         // console.log(this.usersDataStreamService.players);
     }
-
-    public setMultiply(dart: number, multiply: number, playerNumber: number): void {
-        this.Inputs[playerNumber].controls["throws"].controls[dart].patchValue({multiplier: multiply});
-    }
-
-    public checkSelected(dart: number, multiply: number, playerNumber: number): boolean {
-        if (this.Inputs[playerNumber].controls["throws"].controls[dart].controls["multiplier"].value === multiply) {
-            return true;   
-        }    
-        else return false
-    }
-
-    public checkBullsEye(dart: number, playerNumber: number): boolean{
-        if(this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value === 50 || 
-        this.Inputs[playerNumber].controls["throws"].controls[dart].controls.scores.value === 25){
-            return true;
-        }
-        else return false;
-    }
-
+    
     public setPlayers(): void {
         this.step = [];
         let multiplierOne;
@@ -149,7 +130,7 @@ export class GamePageComponent implements OnInit {
                 } 
             this.step.push(step);
             for (let j = 0; j < 3; j++) {
-                this.setMultiply(j, 1, i);
+                this.Inputs[i].controls["throws"].controls[j].patchValue({multiplier: 1});
             }
         }
 
@@ -209,8 +190,6 @@ export class GamePageComponent implements OnInit {
             }
             this.errorMessage += ("overscored. ");
         }
-
-
     }
 
     public newGame(): void {

@@ -33,9 +33,13 @@
                                         <input type="number" class="score-input" formControlName="scores" [class.score-input-error]="throw.controls.scores.invalid && throw.controls.scores.touched"/>
                                             <div *ngIf="throw.controls.scores.errors?.['scores'] && throw.controls.scores.touched" class="error-message">Value [0-20], 25 or 50</div>
                                             <div *ngIf="throw.controls.scores.errors?.['required'] && throw.controls.scores.touched" class="error-message">Input required</div>
-                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,1,i)" [class.multiply-btn-selected]="checkSelected(j,1,i)" [disabled]="checkBullsEye(j,i)">1x</button>
-                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,2,i)" [class.multiply-btn-selected]="checkSelected(j,2,i)" [disabled]="checkBullsEye(j,i)">2x</button>
-                                        <button class="multiply-btn-radius" name="multiplier" (click)="setMultiply(j,3,i)" [class.multiply-btn-selected]="checkSelected(j,3,i)" [disabled]="checkBullsEye(j,i)">3x</button>
+                                        <!-- <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,1,i)" [class.multiply-btn-selected]="checkSelected(j,1,i)" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">1x</button>
+                                        <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,2,i)" [class.multiply-btn-selected]="checkSelected(j,2,i)" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">2x</button>
+                                        <button class="multiply-btn-radius" name="multiplier" (click)="setMultiply(j,3,i)" [class.multiply-btn-selected]="checkSelected(j,3,i)" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">3x</button> -->
+
+                                        <button class="multiply-btn" name="multiplier" (click)="throw.patchValue({multiplier: 1})" [class.multiply-btn-selected]="throw.value.multiplier === 1" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">1x</button>
+                                        <button class="multiply-btn" name="multiplier" (click)="throw.patchValue({multiplier: 2})" [class.multiply-btn-selected]="throw.value.multiplier === 2" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">2x</button>
+                                        <button class="multiply-btn-radius" name="multiplier" (click)="throw.patchValue({multiplier: 3})" [class.multiply-btn-selected]="throw.value.multiplier === 3" [disabled]="throw.value.scores === 50 || throw.value.scores === 25">3x</button>
                                     </div>
                                 </ng-container>
                             </div>

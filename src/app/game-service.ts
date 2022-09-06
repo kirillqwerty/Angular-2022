@@ -44,7 +44,7 @@ export class GameService {
         console.log(this.logScores);
     }
 
-    public calculate(step: PlayerStep[]): string {
+    public calculate(step: PlayerStep[]): void {
 
         const scoresClone = [];
 
@@ -74,7 +74,7 @@ export class GameService {
                     step[i].scoreThirdTry === 50 ||
                     step[i].scoreThirdTry === 25) {                 
                         this.winAlert(i);
-                        return "Win";
+                        return;
                 } else {
                     scoresClone[this.stepNumber][i] = scoresClone[this.stepNumber][i] +
                     (step[i].scoreFirstTry as number) * (step[i].multiplierFirstTry as number) +  
@@ -103,7 +103,6 @@ export class GameService {
             scoresRemain: scoresClone[scoresClone.length - 1],
         }   
         this.logScores.push(balance);
-        return "next step";
     }
 
     public winAlert(winnerNumber: number): void {
