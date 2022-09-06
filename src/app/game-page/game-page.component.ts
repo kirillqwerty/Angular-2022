@@ -5,6 +5,7 @@ import { PlayerStep } from "../facades/playerStep";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PlayerBalance } from "../facades/playersBalance";
 import { dartsValidator } from "../score-input.validator";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-game-page",
@@ -56,7 +57,8 @@ export class GamePageComponent implements OnInit {
     
 
     constructor(private readonly usersDataStreamService: UsersDataStreamService,
-        private readonly gameService: GameService) {
+        private readonly gameService: GameService,
+        private router: Router) {
         // this.test();
     }
 
@@ -195,6 +197,7 @@ export class GamePageComponent implements OnInit {
     public newGame(): void {
         this.usersDataStreamService.selectedPlayers = [];
         this.gameService.logScores = [];
+        this.router.navigate(["/settings"]);
     }
 
     public winAlert(playerNumber: number): void {
