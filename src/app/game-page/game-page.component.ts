@@ -23,21 +23,6 @@ export class GamePageComponent implements OnInit {
 
     public errorMessage = "";
 
-    // public players =
-    //     [["Sherlock Holmes", "fqwefwqef"],
-    //     ["Mrs. Stubbs", "refrqfrfqrfqe"],
-    //     ["Jim Moriarty", "wfrqfqfrqfq"],
-    //     ["Bom Bomson", "fqwefwqef"]];
-    
-    // public players =     
-    // [['fqwe', 'fqwefwqef', 0],
-    // ['fqwe', 'refrqfrfqrfqe', 1],
-    // ['fewqfqwf', 'wfrqfqfrqfq', 2]];
-
-    // public players = 
-    // [['fcdsfqwe', 'fqwefwqef', 0],
-    // ['qwefrff', 'refrqfrfqrfqe', 1]];
-
     public players = this.usersDataStreamService.selectedPlayers;  
 
     public fb = new FormBuilder;
@@ -196,16 +181,16 @@ export class GamePageComponent implements OnInit {
             alert(this.errorMessage);
         }
         
-        console.log(this.errorMessage);
+        // console.log(this.errorMessage);
 
-        console.log("missed 2x");
-        console.log(this.usersDataStreamService.missed2xZonePlayers);
+        // console.log("missed 2x");
+        // console.log(this.usersDataStreamService.missed2xZonePlayers);
 
-        console.log("overscored");
-        console.log(this.usersDataStreamService.overscoredPlayers);
+        // console.log("overscored");
+        // console.log(this.usersDataStreamService.overscoredPlayers);
 
-        console.log(this.step);
-        console.log(this.gameService.logScores);
+        // console.log(this.step);
+        // console.log(this.gameService.logScores);
         this.manageScores.markAsUntouched();
     }
 

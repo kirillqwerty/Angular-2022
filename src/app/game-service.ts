@@ -23,7 +23,7 @@ export class GameService {
         let goal;
         if (this.is301Toggled === true) {
             goal = 301;
-        } else goal = 50;
+        } else goal = 501;
 
         const startingPoints: number[] = [];
 
@@ -81,7 +81,7 @@ export class GameService {
                     (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
                     (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);                   
                     // Индексы игроков, которые набрали 0 но не попали в 2х зону
-                    this.usersDataStreamService.missed2xZonePlayers.push(this.usersDataStreamService.players[i][0]);
+                    this.usersDataStreamService.missed2xZonePlayers.push(this.usersDataStreamService.selectedPlayers[i][0]);
                 }
 
             } else if(scoresClone[this.stepNumber][i] < 0 || scoresClone[this.stepNumber][i] === 1) {
@@ -90,7 +90,7 @@ export class GameService {
                     (step[i].scoreSecondTry as number) * (step[i].multiplierSecondTry as number) + 
                     (step[i].scoreThirdTry as number) * (step[i].multiplierThirdTry as number);
                     // Индексы игроков, у которых перебор  
-                    this.usersDataStreamService.overscoredPlayers.push(this.usersDataStreamService.players[i][0]);
+                    this.usersDataStreamService.overscoredPlayers.push(this.usersDataStreamService.selectedPlayers[i][0]);
                 }
         }
         

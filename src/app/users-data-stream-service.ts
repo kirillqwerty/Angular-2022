@@ -6,13 +6,13 @@ import { Subject } from "rxjs";
 })
 export class UsersDataStreamService {
 
-    // public players: string[][] = [];
+    public players: string[][] = [];
 
-    public players =
-        [["Sherlock Holmes", "fqwefwqef"],
-        ["Mrs. Stubbs", "refrqfrfqrfqe"],
-        ["Jim Moriarty", "wfrqfqfrqfq"],
-        ["Bom Bomson", "fqwefwqef"]];
+    // public players =
+    //     [["Sherlock Holmes", "fqwefwqef"],
+    //     ["Mrs. Stubbs", "refrqfrfqrfqe"],
+    //     ["Jim Moriarty", "wfrqfqfrqfq"],
+    //     ["Bom Bomson", "fqwefwqef"]];
     
     public selectedPlayers: string[][] = [];
 
