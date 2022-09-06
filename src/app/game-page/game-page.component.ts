@@ -84,27 +84,13 @@ export class GamePageComponent implements OnInit {
         this.gameService.start(this.players);
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
-        // console.log(this.manageScores);
         // console.log(this.Inputs);
         // this.test();  
-        this.manageScores.valueChanges.subscribe(console.log);
+        this.manageScores.valueChanges.subscribe(() => {console.log(this.manageScores);});
         // console.log(this.players);
         // console.log("players from service");
         // console.log(this.usersDataStreamService.players);
     }
-    
-
-    
-    public isValidationErrors(): boolean {
-        for (let i = 0; i < this.players.length; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (this.Inputs[i].controls["throws"].controls[j].controls.scores.errors) {
-                    return true;
-                }       
-            }          
-        }
-        return false;
-    }  
 
     public setMultiply(dart: number, multiply: number, playerNumber: number): void {
         this.Inputs[playerNumber].controls["throws"].controls[dart].patchValue({multiplier: multiply});

@@ -31,7 +31,7 @@
                                 <ng-container [formGroup]="throw">                              
                                     <div>
                                         <input type="number" class="score-input" formControlName="scores" [class.score-input-error]="throw.controls.scores.invalid && throw.controls.scores.touched"/>
-                                            <div *ngIf="throw.controls.scores.errors && throw.controls.scores.touched && !throw.controls.scores.errors?.['required']" class="error-message">Value [0-20], 25 or 50</div>
+                                            <div *ngIf="throw.controls.scores.errors?.['scores'] && throw.controls.scores.touched" class="error-message">Value [0-20], 25 or 50</div>
                                             <div *ngIf="throw.controls.scores.errors?.['required'] && throw.controls.scores.touched" class="error-message">Input required</div>
                                         <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,1,i)" [class.multiply-btn-selected]="checkSelected(j,1,i)" [disabled]="checkBullsEye(j,i)">1x</button>
                                         <button class="multiply-btn" name="multiplier" (click)="setMultiply(j,2,i)" [class.multiply-btn-selected]="checkSelected(j,2,i)" [disabled]="checkBullsEye(j,i)">2x</button>
@@ -44,7 +44,8 @@
                 </div>
             </form>
             
-                <button class="btn-add-step" type="submit" (click)="setPlayers()" [disabled]="isValidationErrors()">Add</button>
+                <!-- <button class="btn-add-step" type="submit" (click)="setPlayers()" [disabled]="isValidationErrors()">Add</button> -->
+                <button class="btn-add-step" type="submit" (click)="setPlayers()" [disabled]="!manageScores.valid">Add</button>
             </div>
     
     <div class="game-table">
