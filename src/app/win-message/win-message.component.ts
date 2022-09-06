@@ -16,7 +16,7 @@ export class WinMessageComponent{
         private gameService: GameService) { }
 
     public refresh(): void {
-        this.usersDataStreamService.players = [];
+        this.usersDataStreamService.selectedPlayers = [];
         this.gameService.logScores = [];
     }
 }

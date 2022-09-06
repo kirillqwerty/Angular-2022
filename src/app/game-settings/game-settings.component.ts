@@ -73,4 +73,34 @@ export class GameSettingsComponent {
             this.searchResult = this.usersDataStreamService.players;
         }
     }   
+
+    public managePlayer(index: number): void {
+        if(this.usersDataStreamService.selectedPlayers.indexOf(this.searchResult[index]) === -1){
+            if (this.usersDataStreamService.selectedPlayers.length === 4) {
+                this.usersDataStreamService.selectedPlayers.shift();
+            }
+            this.addPlayerToSelected(index);
+        } else this.deletePlayerFromSelected(index);
+        console.log(this.usersDataStreamService.selectedPlayers);
+        console.log(this.searchResult)
+    }
+
+    public addPlayerToSelected(index: number): void {
+        this.usersDataStreamService.selectedPlayers.push(this.searchResult[index]);
+    }
+
+    public deletePlayerFromSelected(index: number): void {
+        this.usersDataStreamService.selectedPlayers.splice(this.usersDataStreamService.selectedPlayers.indexOf(this.searchResult[index]), 1);
+    }
+
+    public checkIfSelected(index: number): boolean {
+        if (this.usersDataStreamService.selectedPlayers.indexOf(this.searchResult[index]) !== -1) {
+            // console.log(true);
+            return true;    
+        } else {
+            // console.log(false);
+            return false;
+        }    
+        
+    }
 }

@@ -38,7 +38,7 @@ export class GamePageComponent implements OnInit {
     // [['fcdsfqwe', 'fqwefwqef', 0],
     // ['qwefrff', 'refrqfrfqrfqe', 1]];
 
-    public players = this.usersDataStreamService.players;  
+    public players = this.usersDataStreamService.selectedPlayers;  
 
     public fb = new FormBuilder;
     
@@ -95,16 +95,17 @@ export class GamePageComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        this.gameService.logScores = [];
         this.gameService.start(this.players);
         console.log("init");
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
-        console.log(this.manageScores);
-        console.log(this.Inputs);
-        // this.test();
+        // console.log(this.manageScores);
+        // console.log(this.Inputs);
+        // this.test();  
         this.manageScores.valueChanges.subscribe(console.log);
-        console.log(this.players);
-        console.log("players from service");
-        console.log(this.usersDataStreamService.players);
+        // console.log(this.players);
+        // console.log("players from service");
+        // console.log(this.usersDataStreamService.players);
     }
     
 
@@ -222,7 +223,7 @@ export class GamePageComponent implements OnInit {
                 for (let j = 0; j < this.usersDataStreamService.overscoredPlayers.length; j++) {
                     this.errorMessage += (this.usersDataStreamService.overscoredPlayers[j] + ", ");
                 }
-                this.errorMessage += ("overscored. ");
+                this.errorMessage += ("overscored. \n");
             }
             else {
                 for (let i = 0; i < this.usersDataStreamService.missed2xZonePlayers.length; i++) {
@@ -242,7 +243,7 @@ export class GamePageComponent implements OnInit {
     }
 
     public newGame(): void {
-        this.usersDataStreamService.players = [];
+        this.usersDataStreamService.selectedPlayers = [];
         this.gameService.logScores = [];
     }
 

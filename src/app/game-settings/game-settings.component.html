@@ -12,11 +12,11 @@
             <a>🔍︎</a>
         </form>
         
-        <button class="add-players-btn" routerLink="" [disabled]="getPlayers() >= 4">New player</button>
+        <button class="add-players-btn" routerLink="" [disabled]="getPlayers() >= 20">New player</button>
         
         <table>
             <tr *ngFor="let player of searchResult; let i = index;">
-                <div class="player-info">
+                <div class="player-info" (click)="managePlayer(i)" [class.player-info-selected]="checkIfSelected(i)" >
                     <td style="margin-left: 15px;">{{player![0]}}</td>
                     <td style="position: absolute; margin-left: 51%;">{{player![1]}}</td>
                     <td class="cross" (click)="deletePlayer(i)">×</td>
@@ -27,7 +27,7 @@
         <label class="choose-game-label">Choose game</label>
         <button (click)="toggle501()" class="game-circle" [class.game-selected] = "is501Toggled">501</button>
         <button (click)="toggle301()" class="game-circle" style="margin-left: 125px;" [class.game-selected] = "is301Toggled" >301</button>
-        <button class="start-button" (click)="setPlayers()" routerLink = "/game" [disabled] = "usersDataStreamService.players.length < 2 || !isSelected">Start</button>
+        <button class="start-button" (click)="setPlayers()" routerLink = "/game" [disabled] = "usersDataStreamService.selectedPlayers.length < 2 || !isSelected">Start</button>
     </div>
 </div>
 
