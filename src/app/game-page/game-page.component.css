@@ -56,7 +56,7 @@
 
 .menu-container{
     width: 1000px;
-    height: 350px;
+    height: 400px;
     margin-top: 1px;
     background-color: #039be5;  
     display: inline-flex;
@@ -78,7 +78,7 @@
     color: rgb(254, 254, 254);
     display: inline-flex;
     margin-left: 50px;
-    margin-top: 20px;
+    margin-top: 41px;
 }
 
 .players-container{
@@ -108,7 +108,7 @@
 .score-input, .score-input-error{
     font-size: 18px;
     outline: none;
-    margin-top: 6px;
+    margin-top: 26px;
     width: 80px;
     height: 35px;
     border: none;
@@ -118,7 +118,23 @@
 }
 
 .score-input-error{
-    outline: 2px solid red;
+    box-shadow: 3px 3px 0 red inset, -3px -3px 0 red inset;
+}
+
+.score-input:invalid{
+    border: 3px solid red;
+}
+
+.error-message{
+    position: absolute;
+    text-align: center;
+    margin-top: -2px;
+    height: 20px;
+    width: 185px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: #fefefe;
+    border: 3px solid red;
 }
 
 .multiply-btn, .multiply-btn-selected, .multiply-btn-radius, .multiply-btn-radius-selected, .multiply-btn:disabled, .multiply-btn-radius:disabled{
@@ -186,7 +202,7 @@
 
 .btn-add-step{
     margin-left: 300px;
-    margin-top: 245px;
+    margin-top: 310px;
     position: absolute;
     width: 400px;
     height: 50px;
