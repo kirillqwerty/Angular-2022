@@ -12,11 +12,13 @@ import { CommonModule } from "@angular/common";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { WinMessageComponent } from "./win-message/win-message.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CanActivateGameGuard } from "./can-activate-game.guard";
+
 const appRoutes: Routes=[
     {path: "", component: AddUserComponent},
     {path: "choice", component: UserChoiceComponent},
-    {path: "settings", component: GameSettingsComponent},
-    {path: "game", component: GamePageComponent},
+    {path: "settings", component: GameSettingsComponent, canActivate: [CanActivateGameGuard]},
+    {path: "game", component: GamePageComponent, canActivate: [CanActivateGameGuard]},
     {path: "**", component: AddUserComponent},
 ];
 
@@ -38,5 +40,8 @@ const appRoutes: Routes=[
     ReactiveFormsModule    
   ],
   bootstrap: [AppComponent],
+  providers: [
+    CanActivateGameGuard
+  ]
 })
 export class AppModule { }
