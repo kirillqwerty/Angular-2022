@@ -43,7 +43,7 @@
     margin-top: 220px;
 }
 
-input{
+input, input:invalid{
     margin-top: 40px;
     width: 97%;
     height: 39px;
@@ -54,6 +54,18 @@ input{
     position: relative;
     font-size: 16px;
     padding-left: 5px;
+}
+
+.error-message{
+    position: absolute;
+    text-align: center;
+    margin-top: -2px;
+    height: 20px;
+    width: 98%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: #fefefe;
+    border: 3px solid red;
 }
 
 .logo{
@@ -68,16 +80,17 @@ input{
     font-size: 16px;
 }
 
-.label-email-wrapper{
+/* .label-email-wrapper{
     position: absolute;
     width: 100px;
-    height: 39px;
     background: #009ce6;
     display: flex;
     padding-top: 17px;
-}
+} */
 
 .label-email{
+    position: absolute;
+    bottom:15px;
     width: 100%;
     color: #f2f2f2;
     font-size: 16px;

@@ -9,10 +9,14 @@
     <form  class="input-container" [formGroup] = "addUserForm">
         <label class="label-nickname" for="nickname" >Nickname</label>
         <input type="text" formControlName="nick">
-        <div class="label-email-wrapper"> 
+            <div *ngIf="addUserForm.controls.nick.errors?.['required'] && addUserForm.controls.nick.touched" class="error-message">Required</div>
+            <div *ngIf="addUserForm.controls.nick.errors?.['minlength'] && addUserForm.controls.nick.touched" class="error-message">Min length 4</div>
+        
+        <div style="margin-top: 15px;">
             <label class="label-email" for="email">e-mail</label>
+            <input type="text" formControlName="email">
+            <div *ngIf="addUserForm.controls.email.errors?.['email'] && addUserForm.controls.nick.touched" class="error-message">At least one symbol before and after @</div>
         </div>
-        <input type="text" formControlName="email">
     </form>  
     <button class="btn-add" type="button" (click)="addUser()" [disabled]="addUserForm.controls.nick.invalid || addUserForm.controls.email.invalid" >Add</button>
 
