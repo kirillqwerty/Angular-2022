@@ -14,6 +14,6 @@
         </div>
         <input type="text" formControlName="email">
     </form>  
-    <button class="btn-add" type="button" (click)="addUser()" [disabled]="addUserForm.controls.nick.invalid" >Add</button>
+    <button class="btn-add" type="button" (click)="addUser()" [disabled]="addUserForm.controls.nick.invalid || addUserForm.controls.email.invalid" >Add</button>
 
 </form>

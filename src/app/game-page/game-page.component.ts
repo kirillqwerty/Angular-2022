@@ -207,5 +207,5 @@ export class GamePageComponent implements OnInit {
     public checkWinner(): boolean {
         return this.winner !== "";
     }
-    
+
 }

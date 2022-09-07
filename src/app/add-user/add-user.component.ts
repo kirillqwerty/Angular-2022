@@ -16,7 +16,7 @@ export class AddUserComponent implements OnInit{
 
     public addUserForm = this.fb.group({
         nick: ["", [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
-        email: [""]
+        email: ["", [Validators.email]]
     })
 
     constructor(private usersDataStreamService: UsersDataStreamService, 
@@ -25,21 +25,14 @@ export class AddUserComponent implements OnInit{
     }
   
     public addUser(): void {
-        if(this.checkCorrectEmail()) {
-            if (this.checkUniqueUserNick()) {
-                if(this.checkUniqueUserEmail()){
-                    this.usersDataStreamService.addPlayer([this.addUserForm.controls.nick.value as string, this.addUserForm.controls.email.value as string]);
-                    this.router.navigate(["/choice"]);
-                }
-                else alert("User with this email already exist")            
+        if (this.checkUniqueUserNick()) {
+            if(this.checkUniqueUserEmail()){
+                this.usersDataStreamService.addPlayer([this.addUserForm.controls.nick.value as string, this.addUserForm.controls.email.value as string]);
+                this.router.navigate(["/choice"]);
             }
-            else alert("User with this nickname already exist");
-            
-        }   
-        else {
-            alert("incorrect inputs");
-            this.router.navigate([""]);
-        } 
+            else alert("User with this email already exist")            
+        }
+        else alert("User with this nickname already exist");
     }
 
     
@@ -65,11 +58,7 @@ export class AddUserComponent implements OnInit{
         }           
         return true;
     }
-
-    public checkCorrectEmail(): boolean {
-        return /.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === "";
-    }
-
+    
     public ngOnInit(): void {
         this.addUserForm.valueChanges.subscribe(console.log);
     }
