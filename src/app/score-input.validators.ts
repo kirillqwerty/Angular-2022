@@ -7,3 +7,10 @@ export function dartsValidator(control: AbstractControl): { [key: string]: boole
 
     else return {"valueError": true};
 }
+
+export function integerValidator(control: AbstractControl): { [key: string]: boolean } | null{
+    if (Number.isInteger(control.value)) {
+        return null;
+    }
+    else return {"decimal": true};
+}

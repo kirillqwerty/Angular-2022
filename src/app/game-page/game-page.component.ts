@@ -4,7 +4,7 @@ import { GameService } from "../game-service";
 import { PlayerStep } from "../facades/playerStep";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PlayerBalance } from "../facades/playersBalance";
-import { dartsValidator } from "../score-input.validator";
+import { dartsValidator, integerValidator } from "../score-input.validators";
 import { Router } from "@angular/router";
 
 @Component({
@@ -35,17 +35,17 @@ export class GamePageComponent implements OnInit {
                     name: item[0],
                     throws: this.fb.array([
                         this.fb.group({
-                            scores: [<number | null> null, [Validators.required, dartsValidator]],
+                            scores: [<number | null> null, [Validators.required, integerValidator, dartsValidator]],
                             multiplier: 1
                         }),
 
                         this.fb.group({
-                            scores: [<number | null> null, [Validators.required, dartsValidator]],
+                            scores: [<number | null> null, [Validators.required, integerValidator, dartsValidator]],
                             multiplier: 1
                         }),
 
                         this.fb.group({
-                            scores: [ <number | null> null, [Validators.required, dartsValidator]],
+                            scores: [ <number | null> null, [Validators.required, integerValidator, dartsValidator]],
                             multiplier: 1
                         })
                     ])
@@ -88,7 +88,7 @@ export class GamePageComponent implements OnInit {
         this.usersDataStreamService.winner$.subscribe((index) => this.winAlert(index));
         // console.log(this.Inputs);
         // this.test();  
-        this.manageScores.valueChanges.subscribe(() => {console.log(this.manageScores);});
+        this.manageScores.valueChanges.subscribe(() => {console.log(this.manageScores)});
         // console.log(this.players);
         // console.log("players from service");
         // console.log(this.usersDataStreamService.players);

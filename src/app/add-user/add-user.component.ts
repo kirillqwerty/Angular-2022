@@ -67,10 +67,7 @@ export class AddUserComponent implements OnInit{
     }
 
     public checkCorrectEmail(): boolean {
-        if(/.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === ""){
-            return true;
-        }
-        else return false;
+        return /.+@.+\..+/i.test(this.addUserForm.controls.email.value as string) === true || this.addUserForm.controls.email.value as string === "";
     }
 
     public ngOnInit(): void {
