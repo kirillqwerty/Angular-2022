@@ -3,7 +3,8 @@
 ## Page for adding users
 Username field is required and 20 symbols max, username is unique.
 You can add up to 10 players.
-Email filed is optional.
+Email field is optional.
+
 ![addUser](https://user-images.githubusercontent.com/79408397/195535764-509d5435-b6dd-4288-9923-38c02fa920b8.png)
 
 ## Game settings
