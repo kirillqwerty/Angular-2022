@@ -1,14 +1,13 @@
 # DartsCounter
 
 Page for adding users
-![image](https://user-images.githubusercontent.com/79408397/195533873-147695a1-3d32-4e34-a750-3a4f3a1d31d7.png)
+![addUser](https://user-images.githubusercontent.com/79408397/195535764-509d5435-b6dd-4288-9923-38c02fa920b8.png)
 
-Settings
-![image](https://user-images.githubusercontent.com/79408397/195533996-6f6d98e5-97b8-4aa4-890d-07803370dbb5.png)
+Game settings
+![game](https://user-images.githubusercontent.com/79408397/195535798-4fac080a-2684-4666-ad82-2a88d17671e0.png)
 
 Game page
-![image](https://user-images.githubusercontent.com/79408397/195534129-db28c662-3827-4718-bc89-b74d2d3f4456.png)
-
+![settings](https://user-images.githubusercontent.com/79408397/195535826-d011274f-0240-4c68-9aaa-a41d0486b5b1.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
