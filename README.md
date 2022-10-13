@@ -1,14 +1,22 @@
 # DartsCounter
 
-Page for adding users
-
+## Page for adding users
+Username field is required and 20 symbols max, username is unique.
+You can add up to 10 players.
+Email filed is optional.
 ![addUser](https://user-images.githubusercontent.com/79408397/195535764-509d5435-b6dd-4288-9923-38c02fa920b8.png)
 
-Game settings
+## Game settings
+To start the game, you must select at least 2 players and a game mode.
+You can search players by username or email. Search is case-insensitive. 
+Max players to play - 4;
 
 ![settings](https://user-images.githubusercontent.com/79408397/195535826-d011274f-0240-4c68-9aaa-a41d0486b5b1.png)
 
-Game page
+## Game page
+Each field is required. 
+If the player did not hit the target, enter 0.
+The default multiplier is 1. 
 
 ![game](https://user-images.githubusercontent.com/79408397/195535798-4fac080a-2684-4666-ad82-2a88d17671e0.png)
 
